@@ -10,7 +10,8 @@ import Color from "@app/assets/colors";
 export default class SplashScreen extends Component {
     componentDidMount() {
         setTimeout(() => {
-            NavigationServices.resetStackNavigate(["Auth"]);
+            // NavigationServices.resetStackNavigate(["Auth"]);
+            NavigationServices.resetStackNavigate(["Main"]);
         }, 3000);
     }
 
@@ -19,7 +20,7 @@ export default class SplashScreen extends Component {
             <LinearGradient
                 start={{ x: 1.0, y: 0.0 }}
                 end={{ x: 0.0, y: 1.0 }}
-                colors={[Color.primaryColor, Color.pirmaryLightColor]}
+                colors={[Color.primaryColor, Color.accentColor]}
                 style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
             >
                 <Image

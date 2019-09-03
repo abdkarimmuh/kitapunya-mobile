@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { View, Image, Text, SafeAreaView } from 'react-native';
 import { HomeMenu } from '@app/containers';
 import { Mock } from '@app/api';
-// import Carousel from 'react-native-banner-carousel';
-import Carousel from 'react-native-snap-carousel';
+import Carousel from 'react-native-banner-carousel';
 import Styles from '@app/assets/styles';
 import { Metrics } from '@app/themes'
 
@@ -23,16 +22,16 @@ export default class HomeScreen extends Component {
 
     getCarouselMock = async () => {
         Mock.create()
-            .getCarousel()
-            .then(res => {
-                this.setState({ carousel: res.data })
+        .getCarousel()
+        .then(res => {
+            this.setState({ carousel: res.data })
+        })
+        .catch(err => {
+            console.log('ERR', err)
+            this.setState({
+                error: true
             })
-            .catch(err => {
-                console.log('ERR', err)
-                this.setState({
-                    error: true
-                })
-            })
+        })
     }
 
     _renderItem({item,index}){
@@ -47,7 +46,7 @@ export default class HomeScreen extends Component {
     carouselHome = () => {
         return (
             <View style={Styles.carouselContainer}>
-                {/* <Carousel
+                <Carousel
                     autoplay
                     playTime={2000}
                     loop
@@ -60,18 +59,13 @@ export default class HomeScreen extends Component {
                             </View>
                         ))
                     }
-                </Carousel> */}
-                <Carousel
-                    data={this.state.carousel}
-                    sliderWidth={250}
-                    itemWidth={250}
-                    renderItem={this._renderItem}
-                />
+                </Carousel>
             </View>
         )
     };
 
     render() {
+        console.disableYellowBox = true;
         if (this.state.carousel.length == 0) {
             return (<View></View>)
         } else {

@@ -58,11 +58,12 @@ export default StyleSheet.create({
     headerDescription: {
         color: Color.primaryColor
     },
-    viewCarousel:{
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-        width: '100%',
-        padding: 16
-    },
+    textStatusHistory: {
+        color: 'white',
+        alignSelf: 'flex-start',
+        paddingTop: 2,
+        paddingTop: 2,
+        paddingRight: 6,
+        paddingLeft: 6,
+    }
 });

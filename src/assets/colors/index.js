@@ -1,10 +1,15 @@
 export default {
+    darkPrimaryColor: "#EA3005",
+    lightPrimaryColor: "#FDA08B",
     primaryColor: "#FB6340",
-    primaryDarkColor: "#C7553A",
-    pirmaryLightColor: "#FBB040",
-    secondaryColor: "#172B4D",
-    greyColorPri: "#ffb2a0",
-    greyColorSec: "#7D7D7D",
-    whiteOrange: "#fda08b",
-    orangeWhite: "#feeae5"
+    textColor: "#FFFFFF",
+    accentColor: "#FBB040",
+    primaryTextColor: "#212121",
+    secondaryTextColor: "#757575",
+    dividerColor: "#BDBDBD",
+    textDiproses: "#7f8c8d",
+    textDiterima: "#27ae60",
+    textDikirim: "#f08f00",
+    textDisalurkan: "#2980b9",
+    textDitolak: "#c0392b"
 };

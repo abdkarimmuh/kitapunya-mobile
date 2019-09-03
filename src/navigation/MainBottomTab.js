@@ -59,7 +59,7 @@ const MainTab = createBottomTabNavigator(
         }),
         tabBarOptions: {
             activeTintColor: "#fff",
-            inactiveTintColor: Color.whiteOrange,
+            inactiveTintColor: Color.lightPrimaryColor,
             showLabel: true,
             style: { backgroundColor: Color.primaryColor }
         }
