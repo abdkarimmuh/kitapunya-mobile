@@ -11,5 +11,6 @@ export default {
     textDiterima: "#27ae60",
     textDikirim: "#f08f00",
     textDisalurkan: "#2980b9",
-    textDitolak: "#c0392b"
+    textDitolak: "#c0392b",
+    white: "#FFF",
 };
