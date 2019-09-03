@@ -8,5 +8,8 @@ export default {
     },
     background: {
         backgroundLogin: require("./background/background.png")
-    }
+    },
+    other: {
+        uploadImage: require("./other/upload_image.png")
+    },
 };

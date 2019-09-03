@@ -49,11 +49,11 @@ const MainTab = createBottomTabNavigator(
             tabBarIcon: ({ focused, horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
                 if (routeName === "Home") {
-                    return <FontAwesome name={"home"} size={25} color={tintColor} />;
+                    return <FontAwesome name={"home"} size={24} color={tintColor} />;
                 } else if (routeName === "History") {
-                    return <FontAwesome name={"history"} size={25} color={tintColor} />;
+                    return <FontAwesome name={"history"} size={24} color={tintColor} />;
                 } else if (routeName === "Profile") {
-                    return <FontAwesome name={"user"} size={25} color={tintColor} />;
+                    return <FontAwesome name={"user"} size={24} color={tintColor} />;
                 }
             }
         }),
@@ -61,6 +61,7 @@ const MainTab = createBottomTabNavigator(
             activeTintColor: "#fff",
             inactiveTintColor: Color.lightPrimaryColor,
             showLabel: true,
+            tabStyle: { padding: 6 },
             style: { backgroundColor: Color.primaryColor }
         }
     }

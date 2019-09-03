@@ -22,6 +22,10 @@ export default class DetailDonationScreen extends Component {
         NavigationServices.navigate('ListDonatur', { title: title });
     }
 
+    pressDonation(title) {
+        NavigationServices.navigate('Donation', { title: title });
+    }
+
     renderHeader = () => {
         return (
             <View style={[Style.itemDonation, { justifyContent: 'space-between' }]}>
@@ -29,7 +33,12 @@ export default class DetailDonationScreen extends Component {
                     <Avatar.Image size={32} source={Images.avatar.avatarDefault} />
                     <Subheading style={{ paddingLeft: 12 }}>Saha Aing</Subheading>
                 </View>
-                <Button icon="favorite" mode="contained" dark>Donasi</Button>
+                <Button 
+                    icon="favorite" 
+                    mode="contained" 
+                    dark
+                    onPress={() => this.pressDonation("Donasi")}
+                >Donasi</Button>
             </View>
         )
     }
@@ -79,7 +88,7 @@ export default class DetailDonationScreen extends Component {
                     {this.renderDescription()}
                     {this.renderItems()}
                     <Button
-                        mode="contained"
+                        mode="outlined"
                         onPress={() => this.pressDonatur("Donatur")}
                         dark
                         style={{ width: '100%', marginTop: 12 }}>DONATUR</Button>
