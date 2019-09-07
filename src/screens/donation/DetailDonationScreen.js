@@ -1,34 +1,34 @@
 import React, { Component } from "react";
-import { View, Image, ScrollView } from 'react-native';
-import { Container, Avatar, Subheading, Button, ProgressBar, Caption, Title, Paragraph } from '@app/components';
-import Images from '@app/assets/images';
-import Style from '@app/assets/styles';
-import Color from '@app/assets/colors';
-import { LOREMIPSUM } from '@app/assets/strings';
-import { Metrics } from '@app/themes';
-import NavigationServices from '@app/services/NavigationServices';
+import { View, Image, ScrollView } from "react-native";
+import { Container, Avatar, Subheading, Button, ProgressBar, Caption, Title, Paragraph } from "@app/components";
+import Images from "@app/assets/images";
+import Style from "@app/assets/styles";
+import Color from "@app/assets/colors";
+import { LOREMIPSUM } from "@app/assets/strings";
+import { Metrics } from "@app/themes";
+import NavigationServices from "@app/services/NavigationServices";
 
 export default class DetailDonationScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: '',
+            data: "",
             error: false
         };
     }
 
     pressDonatur(title) {
-        NavigationServices.navigate('ListDonatur', { title: title });
+        NavigationServices.navigate("ListDonatur", { title: title });
     }
 
     pressDonation(title) {
-        NavigationServices.navigate('Donation', { title: title });
+        NavigationServices.navigate("Donation", { title: title });
     }
 
     renderHeader = () => {
         return (
-            <View style={[Style.itemDonation, { justifyContent: 'space-between' }]}>
+            <View style={[Style.itemDonation, { justifyContent: "space-between" }]}>
                 <View style={Style.itemDonation}>
                     <Avatar.Image size={32} source={Images.avatar.avatarDefault} />
                     <Subheading style={{ paddingLeft: 12 }}>Saha Aing</Subheading>
@@ -84,14 +84,14 @@ export default class DetailDonationScreen extends Component {
                 <Container style={{ padding: 24 }}>
                     {this.renderHeader()}
                     {this.renderProgressBar()}
-                    <Title style={{ fontWeight: 'bold' }}>This Title</Title>
+                    <Title style={{ fontWeight: "bold" }}>This Title</Title>
                     {this.renderDescription()}
                     {this.renderItems()}
                     <Button
                         mode="outlined"
                         onPress={() => this.pressDonatur("Donatur")}
                         dark
-                        style={{ width: '100%', marginTop: 12 }}>DONATUR</Button>
+                        style={{ width: "100%", marginTop: 12 }}>DONATUR</Button>
                 </Container>
             </ScrollView>
         );

@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { Image } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
-import NavigationServices from "@app/services/NavigationServices";
-
 import Logo from "@app/assets/images";
 import Color from "@app/assets/colors";
+
+import NavigationServices from "@app/services/NavigationServices";
 
 export default class SplashScreen extends Component {
     componentDidMount() {
         setTimeout(() => {
-            // NavigationServices.resetStackNavigate(["Auth"]);
-            NavigationServices.resetStackNavigate(["Main"]);
+            NavigationServices.resetStackNavigate(["Auth"]);
+            // NavigationServices.resetStackNavigate(["Main"]);
         }, 3000);
     }
 

@@ -1,20 +1,14 @@
-import React, { Component } from "react";
 import {
     createStackNavigator
 } from "react-navigation";
-import { HomeScreen, ListDonationScreen, DetailDonationScreen, ListDonaturScreen, DonationScreen } from '@app/screens';
-import { HeaderDefault, HeaderDetail } from "@app/components";
+import { HomeScreen, ListDonationScreen, DetailDonationScreen, ListDonaturScreen, DonationScreen } from "@app/screens";
 import Color from "@app/assets/colors";
 
 export default createStackNavigator({
     Main: {
         screen: HomeScreen,
         navigationOptions: {
-            headerTitle: <HeaderDefault />,
-            headerStyle: {
-                backgroundColor: Color.primaryColor,
-                headerTintColor: "#fff"
-            }
+            header: null
         }
     },
     ListDonation: {

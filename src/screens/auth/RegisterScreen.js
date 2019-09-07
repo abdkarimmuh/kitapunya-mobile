@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { Image, ImageBackground, View, ScrollView } from 'react-native';
-import { TextInputLoginRegister, ButtonLoginRegister, Container, Text } from '@app/components';
-import Styles from '@app/assets/styles';
-import Images from '@app/assets/images';
+import { Image, ImageBackground, View, ScrollView } from "react-native";
+import { TextInputLoginRegister, 
+    ButtonLoginRegister, 
+    Container, 
+    Text 
+} from "@app/components";
+
+import Styles from "@app/assets/styles";
+import Images from "@app/assets/images";
 import { darkTheme } from "@app/themes";
 
 import NavigationServices from "@app/services/NavigationServices";
@@ -21,12 +26,12 @@ export default class Register extends Component {
     }
 
     onPressLogin = () => {
-        console.log('Login')
+        console.log("Login")
         NavigationServices.navigate("Login");
     };
 
     onPressRegister = () => {
-        console.log('Register ' + this.state.email + ' ' + this.state.password + this.state.firstName)
+        console.log("Register " + this.state.email + " " + this.state.password + this.state.firstName)
         this.setState({
             firstName: "",
             lastName: "",
@@ -71,11 +76,11 @@ export default class Register extends Component {
 
     renderBottom = () => {
         return (
-            <View style={{ flexDirection: 'row', alignSelf: "center", marginTop: 32 }}>
+            <View style={{ flexDirection: "row", alignSelf: "center", marginTop: 32 }}>
                 <Text theme={darkTheme}>Sudah punya akun?</Text>
                 <Text
                     theme={darkTheme}
-                    style={{ marginLeft: 4, fontWeight: 'bold' }}
+                    style={{ marginLeft: 4, fontWeight: "bold" }}
                     onPress={this.onPressLogin}>Login</Text>
             </View>
         )

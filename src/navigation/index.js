@@ -2,7 +2,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import { SplashScreen } from "@app/screens";
 import AuthStack from "./AuthStack";
-import MainBottomTab from "./MainBottomTab";
+import MainBottom from "./MainBottom";
 
 const InitialStack = createStackNavigator(
   {
@@ -19,14 +19,14 @@ const InitialStack = createStackNavigator(
       }
     },
     Main: {
-      screen: MainBottomTab,
+      screen: MainBottom,
       navigationOptions: {
         header: null
       }
     }
   },
   {
-    initialRouteName: "Splash"
+    initialRouteName: "Main"
   }
 );
 

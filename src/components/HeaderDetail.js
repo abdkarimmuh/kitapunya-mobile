@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Text } from "react-native";
-import Logo from "@app/assets/images";
+import { View } from "react-native";
+import { Title } from "@app/components";
 
 export default class HeaderDetail extends Component {
     render() {
         return (
-            <Text style={{ color: '#FFF' }} >{this.props.children}</Text>
+            <View style={{paddingHorizontal: 16}}>
+                <Title style={{ color: "#FFF" }} >{this.props.children}</Title>
+            </View>
         );
     }
 }

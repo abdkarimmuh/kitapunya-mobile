@@ -12,4 +12,14 @@ export default {
     other: {
         uploadImage: require("./other/upload_image.png")
     },
+    icon: {
+        child: require("./icon/child.png"),
+        gift: require("./icon/gift.png"),
+        graduationCap: require("./icon/graduation_cap.png"),
+        houseDamage: require("./icon/house_damage.png"),
+        mosque: require("./icon/mosque.png"),
+        signOut: require("./icon/sign_out.png"),
+        userEdit: require("./icon/user_edit.png"),
+        user: require("./icon/user.png"),
+    },
 };

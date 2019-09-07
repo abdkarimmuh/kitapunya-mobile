@@ -13,4 +13,6 @@ export default {
     textDisalurkan: "#2980b9",
     textDitolak: "#c0392b",
     white: "#FFF",
+    white25: "#FFFFFF40",
+    grey: "#999"
 };

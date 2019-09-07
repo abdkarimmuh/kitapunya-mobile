@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from "react-native";
 
-import { EmptyData } from '@app/containers';
-import { Loading, Container, Title, Paragraph, Caption, Subheading } from '@app/components';
-import Color from '@app/assets/colors';
-import Style from '@app/assets/styles'
+import { EmptyData } from "@app/containers";
+import { Loading, Container, Title, Paragraph, Caption, Subheading } from "@app/components";
+import Color from "@app/assets/colors";
+import Style from "@app/assets/styles"
 
-import Mock from '@app/api/mock';
+import Mock from "@app/api/mock";
 
 export default class HistoryScreen extends Component {
 
@@ -29,7 +29,7 @@ export default class HistoryScreen extends Component {
             this.setState({ data: res.data, isFetching: false })
         })
         .catch(err => {
-            console.log('ERR', err)
+            console.log("ERR", err)
             this.setState({
                 error: true
             })
@@ -94,7 +94,7 @@ export default class HistoryScreen extends Component {
                             /> */}
                             <View>
                                 <Title>{ d.title }</Title>
-                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                                <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
                                     <Subheading style={this.getStatusStyle(d.status)}>{ this.getStatus(d.status) }</Subheading>
                                     <Caption>{ d.date }</Caption>
                                 </View>

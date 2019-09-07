@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Image, View } from 'react-native';
-import { Container, Card, Avatar } from '@app/components';
-import Style from '@app/assets/styles';
-import Images from '@app/assets/images';
-import Color from '@app/assets/colors';
-import { Metrics } from '@app/themes';
+import { Image, View } from "react-native";
+import { Container, Card, Avatar } from "@app/components";
+import Style from "@app/assets/styles";
+import Images from "@app/assets/images";
+import Color from "@app/assets/colors";
+import { Metrics } from "@app/themes";
 
 export default class DonaturItem extends Component {
 

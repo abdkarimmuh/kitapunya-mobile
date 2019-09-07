@@ -1,3 +1,3 @@
 export default {
-    baseUrl: 'http://kitapunya.tech/api'
+    baseUrl: "http://kitapunya.tech/api"
 }

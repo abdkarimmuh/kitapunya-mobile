@@ -1,21 +1,20 @@
 import React, { Component } from "react";
-import { Image, View } from 'react-native';
-import { Container, Card, Subheading, Caption, ProgressBar } from '@app/components';
-import NavigationServices from '@app/services/NavigationServices';
-import Style from '@app/assets/styles';
-import Images from '@app/assets/images';
-import Color from '@app/assets/colors';
-import { Metrics } from '@app/themes';
+import { Image, View } from "react-native";
+import { Container, Card, Subheading, Caption, ProgressBar } from "@app/components";
+import NavigationServices from "@app/services/NavigationServices";
+import Style from "@app/assets/styles";
+import Images from "@app/assets/images";
+import Color from "@app/assets/colors";
+import { Metrics } from "@app/themes";
 
 export default class DonationItem extends Component {
     pressCategory(title) {
-        NavigationServices.navigate('DetailDonation', { title: title });
+        NavigationServices.navigate("DetailDonation", { title: title });
     }
 
     render() {
         return (
-            <Container>
-                <Card onPress={() => this.pressCategory('Detail')}>
+                <Card onPress={() => this.pressCategory("Detail")}>
                     <View style={Style.itemDonation}>
                         <Image source={Images.background.backgroundLogin} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation }} />
                         <View style={{ paddingLeft: 16, paddingRight: 16, flex: 1 }}>
@@ -28,7 +27,6 @@ export default class DonationItem extends Component {
                         </View>
                     </View>
                 </Card>
-            </Container>
         );
     }
 }

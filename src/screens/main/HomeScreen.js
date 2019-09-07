@@ -1,80 +1,114 @@
 import React, { Component } from "react";
-import { View, Image, Text, SafeAreaView } from 'react-native';
-import { HomeMenu } from '@app/containers';
-import { Mock } from '@app/api';
-import Carousel from 'react-native-banner-carousel';
-import Styles from '@app/assets/styles';
-import { Metrics } from '@app/themes'
+import { View, Image, StyleSheet, ScrollView } from "react-native";
+import { HomeMenu } from "@app/containers";
+import { 
+    Text,
+    Title,
+    DonationItem
+} from "@app/components";
+
+import Color from "@app/assets/colors";
+import Images from "@app/assets/images";
+import { Mock } from "@app/api";
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 24
+    },
+    containerCard: {
+        marginTop: 24
+    },
+    containerHeader: {
+        width: "100%",
+        padding: 24,
+        backgroundColor: Color.primaryColor,
+        flexDirection: "row",
+        alignItems: "center",
+        elevation: 4,
+    },
+    imageProfile: {
+        height: 80,
+        width: 80,
+        borderRadius: 450,
+        borderWidth: 2,
+        borderColor: "#FFF"
+    },
+    textContainer: {
+      flexDirection: "column",
+      marginLeft: 16
+    },
+    textHeader: {
+      fontWeight: "bold",
+      color: "#FFF",
+      fontSize: 24
+    },
+    textHeaderName: {
+      color: "#FFF"
+    },
+    titleHome: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: Color.grey
+    },
+});
 
 export default class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            carousel: [],
+            data: [],
             error: false
         };
     }
 
     componentDidMount() {
-        this.getCarouselMock();
+        this.getCampaignCurrentMock();
     }
 
-    getCarouselMock = async () => {
+    getCampaignCurrentMock = async () => {
         Mock.create()
         .getCarousel()
         .then(res => {
-            this.setState({ carousel: res.data })
+            this.setState({ data: res.data })
         })
         .catch(err => {
-            console.log('ERR', err)
+            console.log("ERR", err)
             this.setState({
                 error: true
             })
         })
     }
 
-    _renderItem({item,index}){
-        return (
-            <View style={{ flex: 1, width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }}>
-                <Image style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} source={{ uri: item.images }} />                 
-                <View style = {Styles.viewCarousel}><Text>{item.title}</Text></View>
+    _renderHeader = () => (
+        <View style={styles.containerHeader}>
+            <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
+            <View style={styles.textContainer}>
+                <Text style={styles.textHeader}>Welcome</Text>
+                <Text style={styles.textHeaderName}>Name</Text>
             </View>
-        )
-    }
-
-    carouselHome = () => {
-        return (
-            <View style={Styles.carouselContainer}>
-                <Carousel
-                    autoplay
-                    playTime={2000}
-                    loop
-                    index={0}
-                    pageSize={Metrics.DEVICE_WIDTH} >
-                    {
-                        this.state.carousel.map((d) => (
-                            <View key={d.id}>
-                                <Image style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} source={{ uri: d.images }} />
-                            </View>
-                        ))
-                    }
-                </Carousel>
-            </View>
-        )
-    };
+        </View>
+    );
 
     render() {
         console.disableYellowBox = true;
-        if (this.state.carousel.length == 0) {
-            return (<View></View>)
-        } else {
-            return (
-                <View>
-                    {this.carouselHome()}
-                    <HomeMenu></HomeMenu>
-                </View>
-            );
-        }
+        return (
+            <View style={{ flex:1 }}>
+                {this._renderHeader()}
+                <ScrollView style={{ flex:1 }}>
+                    <View style={styles.container}>
+                        <Title style={styles.titleHome}>Pilih Kategori Campaign</Title>
+                        <HomeMenu/>
+                        <Title style={styles.titleHome}>Lihat Campaign Terbaru</Title>
+                        <View style={styles.containerCard}>
+                            <DonationItem />
+                        </View>
+                        <View style={styles.containerCard}>
+                            <DonationItem />
+                        </View>
+                    </View>
+                </ScrollView>
+            </View>
+        );
     }
 }

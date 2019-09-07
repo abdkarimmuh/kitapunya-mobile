@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextInput } from "@app/components";
 import { darkTheme } from "@app/themes";
-import Styles from '@app/assets/styles';
+import Styles from "@app/assets/styles";
 
 const TextInputLoginRegister = (
     label,

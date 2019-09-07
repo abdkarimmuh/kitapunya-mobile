@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Text, ScrollView } from 'react-native';
-import { DonaturItem, Container } from '@app/components';
+import { Text, ScrollView } from "react-native";
+import { DonaturItem, Container } from "@app/components";
 
 export default class ListDonationScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: '',
+            data: "",
             error: false
         };
     }
