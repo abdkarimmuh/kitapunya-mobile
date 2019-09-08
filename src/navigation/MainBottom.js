@@ -1,15 +1,13 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createStackNavigator } from "react-navigation";
-import { 
-    Text, 
-    HeaderDetail
-} from "@app/components";
+import { Text, HeaderDetail } from "@app/components";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Color from "@app/assets/colors";
 
-import { HistoryScreen, ProfileScreen } from "@app/screens";
-import MainSctack from "./MainStack";
+import { HistoryScreen } from "@app/screens";
+import MainStack from "./MainStack";
+import ProfileStack from "./ProfileStack";
 
 const activeTintLabelColor = "#fff";
 const inactiveTintLabelColor = Color.white25;
@@ -41,23 +39,10 @@ const HistoryStack = createStackNavigator({
     }
 });
 
-const ProfileStack = createStackNavigator({
-    Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-            headerTitle: <HeaderDetail>Profil</HeaderDetail>,
-            headerStyle: {
-                backgroundColor: Color.primaryColor,
-                headerTintColor: "#fff"
-            }
-        }
-    }
-});
-
 export default createMaterialBottomTabNavigator(
     {
         Home: {
-            screen: MainSctack,
+            screen: MainStack,
             navigationOptions: {
                 tabBarLabel: <Label text={"Beranda"} />,
                 tabBarIcon: TabIcon({ name: "home" })

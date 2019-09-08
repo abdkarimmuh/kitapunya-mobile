@@ -163,7 +163,7 @@ export default class DonationScreen extends Component {
                 </View>    
                 <Container>
                     <TextInput
-                        style={{ backgroundColor: Color.white }}
+                        style={{ backgroundColor: Color.transparent }}
                         label="Alamat"
                         value={this.state.text}
                         multiline={true}

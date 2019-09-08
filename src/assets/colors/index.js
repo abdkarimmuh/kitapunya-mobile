@@ -17,5 +17,6 @@ export default {
     white25: "#FFFFFF40",
     grey: "#999",
     backgroudDefault: "#F4F4F4",
-    black4A: "#4A4A4A"
+    black4A: "#4A4A4A",
+    transparent: "#FFFFFF00"
 };

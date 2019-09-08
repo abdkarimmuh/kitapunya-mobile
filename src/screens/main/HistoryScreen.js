@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Text, View, ScrollView, Image } from "react-native";
-
 import { EmptyData } from "@app/containers";
 import { Loading, Container, Caption } from "@app/components";
 import Color from "@app/assets/colors";

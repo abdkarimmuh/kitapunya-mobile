@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
       fontSize: 24
     },
     textHeaderName: {
-      color: "#FFF"
+      color: "#FFF",
+      fontSize: 16
     },
     titleHome: {
         fontSize: 18,
