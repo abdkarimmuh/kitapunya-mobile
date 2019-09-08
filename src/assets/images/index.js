@@ -9,9 +9,6 @@ export default {
     background: {
         backgroundLogin: require("./background/background.png")
     },
-    other: {
-        uploadImage: require("./other/upload_image.png")
-    },
     icon: {
         child: require("./icon/child.png"),
         gift: require("./icon/gift.png"),

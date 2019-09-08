@@ -26,7 +26,7 @@ const InitialStack = createStackNavigator(
         }
     },
     {
-        initialRouteName: "Main"
+        initialRouteName: "Splash"
     }
 );
 

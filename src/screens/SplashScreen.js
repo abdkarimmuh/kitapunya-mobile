@@ -11,7 +11,6 @@ export default class SplashScreen extends Component {
     componentDidMount() {
         setTimeout(() => {
             NavigationServices.resetStackNavigate(["Auth"]);
-            // NavigationServices.resetStackNavigate(["Main"]);
         }, 3000);
     }
 
