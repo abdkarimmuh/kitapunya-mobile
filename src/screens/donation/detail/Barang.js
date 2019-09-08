@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ScrollView, View } from "react-native";
 import {
-    Paragraph, 
     Container,
     Text
 } from "@app/components";
@@ -29,13 +28,13 @@ export default class BarangScreen extends Component {
         return (
             <View style={{ marginTop: 24 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>Mukena</Text>
+                    <Text style={{ fontWeight: "500", fontSize: 18 }}>Mukena</Text>
                     <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
                         <View style={{ width: 100, alignItems: "center" }}>
-                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>{data}</Text>
+                            <Text style={{ fontWeight: "500", fontSize: 16 }}>{data}</Text>
                         </View>
                         <View style={{ width: 100, alignItems: "center" }}>
-                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>20</Text>
+                            <Text style={{ fontWeight: "500", fontSize: 16 }}>20</Text>
                         </View>
                     </View>
                 </View>

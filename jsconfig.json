@@ -15,7 +15,6 @@
       "@app/api": ["api"],
       "@app/api/*": ["api/*"],
       "@app/themes": ["themes"],
-      "@app/redux/*": ["redux/*"],
       "@app/assets/*": ["assets/*"],
       "@app/configs/*": ["configs/*"]
     }

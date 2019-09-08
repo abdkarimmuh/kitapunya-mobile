@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, View } from "react-native";
-import { Container, Card, Subheading, Caption, ProgressBar } from "@app/components";
+import { Card, Text, Caption, ProgressBar } from "@app/components";
 import NavigationServices from "@app/services/NavigationServices";
 import Styles from "@app/assets/styles";
 import Images from "@app/assets/images";
@@ -18,10 +18,10 @@ export default class DonationItem extends Component {
                 <View style={Styles.itemDonation}>
                     <Image source={Images.background.backgroundLogin} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation }} />
                     <View style={{ paddingLeft: 16, paddingRight: 16, flex: 1 }}>
-                        <Subheading>Card title</Subheading>
+                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Card title</Text>
                         <Caption>Card content</Caption>
-                        <ProgressBar progress={0.5} color={Color.primaryColor} style={{ marginBottom: -16 }} />
-                        <View style={Styles.itemDonationDetail}>
+                        <ProgressBar progress={0.5} color={Color.primaryColor} style={{ marginBottom: -12 }} />
+                        <View style={Styles.itemDaysProgresiveDay}>
                             <Caption>Days</Caption>
                         </View>
                     </View>

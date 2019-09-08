@@ -66,6 +66,10 @@ export default StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
+    itemDaysProgresiveDay: {
+        flexDirection: "row",
+        alignSelf: "flex-end"
+    },
     itemDonationDetail: {
         flexDirection: "row",
         justifyContent: "space-between"
@@ -87,10 +91,10 @@ export default StyleSheet.create({
     },
     btnDonasi: {
         position: "absolute",
-        top: Metrics.HightCarousel - 22,
+        top: Metrics.HightCarousel - 24,
         alignSelf: "center",
         width: 140,
-        height: 44
+        height: 48
     },
     imgBtn: {
         marginRight: 6,

@@ -39,6 +39,16 @@ const styles = StyleSheet.create({
     containerMenuOption: {
         flexDirection: "row",
         alignItems: "center"
+    }, 
+    imgBtn: {
+        marginRight: 16,
+        width: 20,
+        height: 20,
+        resizeMode: "contain"
+    },
+    titleMenu: {
+        fontSize: 16,
+        fontWeight: "500"
     }
 });
 
@@ -63,15 +73,15 @@ export default class ProfileScreen extends Component {
     );
 
     _renderMenu = () => (
-        <View style={{marginTop: 8}}>
+        <View style={{marginTop: 16}}>
             <TouchableOpacity
                 onPress={() => {
                     this.pressEditProfil();
                 }}>
                 <View style={styles.containerMenu}>
                     <View style={styles.containerMenuOption}>
-                        <Image source={Images.icon.userEdit} style={Styles.imgBtn}/>
-                        <Text>Edit Profil</Text>
+                        <Image source={Images.icon.userEdit} style={styles.imgBtn}/>
+                        <Text style={styles.titleMenu}>Edit Profil</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -81,8 +91,8 @@ export default class ProfileScreen extends Component {
                 }}>
                 <View style={styles.containerMenu}>
                     <View style={styles.containerMenuOption}>
-                        <Image source={Images.icon.signOut} style={Styles.imgBtn}/>
-                        <Text>Logout</Text>
+                        <Image source={Images.icon.signOut} style={styles.imgBtn}/>
+                        <Text style={styles.titleMenu}>Logout</Text>
                     </View>
                 </View>
             </TouchableOpacity>
