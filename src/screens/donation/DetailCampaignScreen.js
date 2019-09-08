@@ -14,8 +14,7 @@ import {
     BarangScreen, DonaturScreen
 } from "@app/screens";
 
-import { LOREMIPSUM } from "@app/assets/strings";
-import { TabView, TabBar, SceneMap } from "react-native-tab-view";
+import { TabView, TabBar } from "react-native-tab-view";
 import Images from "@app/assets/images";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";

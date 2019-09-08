@@ -22,5 +22,10 @@ export default {
         userEdit: require("./icon/user_edit.png"),
         user: require("./icon/user.png"),
         maps: require("./icon/maps.png"),
+        dot_jemput: require("./icon/dot_jemput.png"),
+        dot_terima: require("./icon/dot_terima.png"),
+        dot_kirim: require("./icon/dot_kirim.png"),
+        dot_salurkan: require("./icon/dot_salurkan.png"),
+        dot_tolak: require("./icon/dot_tolak.png"),
     },
 };

@@ -114,5 +114,25 @@ export default StyleSheet.create({
         paddingRight: 24, 
         marginBottom: 12, 
         backgroundColor: Color.white
+    },
+    containerHistory: {
+        marginBottom: 24, 
+        flexDirection: "row", 
+        alignItems: "center", 
+        justifyContent: "space-between"
+    },
+    containerHistoryStatus: {
+        flexDirection: "row", 
+        alignItems: "center"
+    },
+    imgStatus: {
+        marginRight: 16,
+        width: 12,
+        height: 12,
+        resizeMode: "contain"
+    },
+    titleStatus: {
+        fontSize: 16,
+        fontWeight: "bold"
     }
 });

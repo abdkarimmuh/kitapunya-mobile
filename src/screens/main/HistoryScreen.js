@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, Image } from "react-native";
 
 import { EmptyData } from "@app/containers";
-import { Loading, Container, Title, Paragraph, Caption, Subheading } from "@app/components";
+import { Loading, Container, Caption } from "@app/components";
 import Color from "@app/assets/colors";
-import Style from "@app/assets/styles"
+import Styles from "@app/assets/styles"
 
+import Images from "@app/assets/images";
 import Mock from "@app/api/mock";
+
+import { STATUS_JEMPUT, STATUS_KIRIM, STATUS_SALURKAN, STATUS_TERIMA, STATUS_TOLAK } from "@app/assets/strings";
 
 export default class HistoryScreen extends Component {
 
@@ -34,71 +37,53 @@ export default class HistoryScreen extends Component {
                 error: true
             })
         })
-    } 
-    
-    getStatusStyle(status) {
-        if(status==1) {
-            return {
-                color: Color.textDiproses,
-            }
-        } else if(status==2) {
-            return {
-                color: Color.textDiterima
-            }
-        } else if(status==3) {
-            return {
-                color: Color.textDikirim
-            }
-        } else if(status==4) {
-            return {
-                color: Color.textDisalurkan
-            }
-        } else {
-            return {
-                color: Color.textDitolak
-            }
-        }
     }
     
     getStatus(status) {
         if(status==1) {
-            return "Diproses"
+            return STATUS_JEMPUT
         } else if(status==2) {
-            return "Diterima"
+            return STATUS_TERIMA
         } else if(status==3) {
-            return "Dikirim"
+            return STATUS_KIRIM
         } else if(status==4) {
-            return "Disalurkan"
+            return STATUS_SALURKAN
         } else {
-            return "Ditolak"
+            return STATUS_TOLAK
+        }
+    }
+
+    getStatusDot(status) {
+        if(status==1) {
+            return Images.icon.dot_jemput
+        } else if(status==2) {
+            return Images.icon.dot_terima
+        } else if(status==3) {
+            return Images.icon.dot_kirim
+        } else if(status==4) {
+            return Images.icon.dot_salurkan
+        } else {
+            return Images.icon.dot_tolak
         }
     }
     
-
     render() {
         return (
-            <ScrollView>
-                <Container style={{ padding: 8 }}>
+            <ScrollView style={{backgroundColor: Color.backgroudDefault}}>
+                <Container style={{ paddingBottom: 0 }}>
                     { this.state.isFetching && <Loading/> }
                     { this.state.data===null && <EmptyData/> }
                     {
                         this.state.data.map((d) => (
-                        <View key={d.id} style={{ marginBottom: 8, padding: 8 }}>
-                            {/* <ListItem
-                                hideChevron={true}
-                                title={d.title}
-                                subtitle={this.getStatus(d.status)}
-                                rightTitle={d.date}
-                                titleStyle={styles.titleStyle}
-                                subtitleStyle={[styles.subtitleStyle, this.getStatusStyle(d.status)]}
-                            /> */}
-                            <View>
-                                <Title>{ d.title }</Title>
-                                <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
-                                    <Subheading style={this.getStatusStyle(d.status)}>{ this.getStatus(d.status) }</Subheading>
-                                    <Caption>{ d.date }</Caption>
+                        <View key={d.id} style={Styles.containerHistory}>
+                            <View style={Styles.containerHistoryStatus}>
+                                <Image source={this.getStatusDot(d.status)} style={Styles.imgStatus} />
+                                <View>
+                                    <Text style={Styles.titleStatus}>{this.getStatus(d.status)}</Text>
+                                    <Text>{d.title}</Text>
                                 </View>
                             </View>
+                            <Caption>{d.date}</Caption>
                         </View>
                         ))
                     }    
