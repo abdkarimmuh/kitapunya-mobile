@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import Color from "@app/assets/colors";
+import { Metrics } from "@app/themes";
 
 export default StyleSheet.create({
     bgImage: {
@@ -67,7 +68,7 @@ export default StyleSheet.create({
     },
     itemDonationDetail: {
         flexDirection: "row",
-        justifyContent: "flex-end"
+        justifyContent: "space-between"
     },
     itemDescriptionDetail: {
         paddingTop: 8,
@@ -83,5 +84,35 @@ export default StyleSheet.create({
         paddingTop: 2,
         paddingRight: 6,
         paddingLeft: 6,
+    },
+    btnDonasi: {
+        position: "absolute",
+        top: Metrics.HightCarousel - 22,
+        alignSelf: "center",
+        width: 140,
+        height: 44
+    },
+    imgBtn: {
+        marginRight: 6,
+        width: 16,
+        height: 16,
+        resizeMode: "contain"
+    },
+    avatarDonatur: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        resizeMode: "cover"
+    },
+    containerBarang: {
+        padding: 24, 
+        backgroundColor: Color.white
+    },
+    containerOptionBarang: {
+        paddingBottom: 24, 
+        paddingRight: 24, 
+        paddingRight: 24, 
+        marginBottom: 12, 
+        backgroundColor: Color.white
     }
 });

@@ -40,8 +40,8 @@ const MenuItem = [
 
 export default class HomeMenu extends Component {
 
-    pressCategory(title) {
-        NavigationServices.navigate("ListDonation", { title: title, id: id });
+    pressCategory(title, id) {
+        NavigationServices.navigate("ListCampaign", { title: title, id: id });
     }
 
     render() {

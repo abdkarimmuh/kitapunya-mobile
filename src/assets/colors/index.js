@@ -13,6 +13,9 @@ export default {
     textDisalurkan: "#2980b9",
     textDitolak: "#c0392b",
     white: "#FFF",
+    black: "#000",
     white25: "#FFFFFF40",
-    grey: "#999"
+    grey: "#999",
+    backgroudDefault: "#F4F4F4",
+    black4A: "#4A4A4A"
 };

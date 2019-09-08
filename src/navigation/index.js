@@ -5,29 +5,29 @@ import AuthStack from "./AuthStack";
 import MainBottom from "./MainBottom";
 
 const InitialStack = createStackNavigator(
-  {
-    Splash: {
-      screen: SplashScreen,
-      navigationOptions: {
-        header: null
-      }
+    {
+        Splash: {
+            screen: SplashScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
+        Auth: {
+            screen: AuthStack,
+            navigationOptions: {
+                header: null
+            }
+        },
+        Main: {
+            screen: MainBottom,
+            navigationOptions: {
+                header: null
+            }
+        }
     },
-    Auth: {
-      screen: AuthStack,
-      navigationOptions: {
-        header: null
-      }
-    },
-    Main: {
-      screen: MainBottom,
-      navigationOptions: {
-        header: null
-      }
+    {
+        initialRouteName: "Main"
     }
-  },
-  {
-    initialRouteName: "Main"
-  }
 );
 
 export default createAppContainer(InitialStack);

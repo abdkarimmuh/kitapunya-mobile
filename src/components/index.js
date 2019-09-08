@@ -6,7 +6,6 @@ import BarStatus from "./BarStatus";
 import TextInputLoginRegister from "./TextInputLoginRegister";
 import ButtonLoginRegister from "./ButtonLoginRegister";
 import DonationItem from "./DonationItem";
-import DonaturItem from "./DonaturItem";
 
 export {
     Container,
@@ -16,7 +15,6 @@ export {
     BarStatus,
     TextInputLoginRegister,
     ButtonLoginRegister,
-    DonationItem,
-    DonaturItem
+    DonationItem
 };
 export * from "react-native-paper";

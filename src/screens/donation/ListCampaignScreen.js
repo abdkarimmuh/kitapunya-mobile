@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { Text, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 import { DonationItem, Container } from "@app/components";
+
+const styles = StyleSheet.create({
+    containerCard: {
+        marginBottom: 24
+    },
+});
 
 export default class ListDonationScreen extends Component {
 
@@ -16,9 +22,12 @@ export default class ListDonationScreen extends Component {
         return (
             <ScrollView>
                 <Container>
-                    <DonationItem />
-                    <DonationItem />
-                    <DonationItem />
+                    <View style={styles.containerCard}>
+                        <DonationItem />
+                    </View>
+                    <View style={styles.containerCard}>
+                        <DonationItem />
+                    </View>
                 </Container>
             </ScrollView>
         );

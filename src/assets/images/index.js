@@ -21,5 +21,6 @@ export default {
         signOut: require("./icon/sign_out.png"),
         userEdit: require("./icon/user_edit.png"),
         user: require("./icon/user.png"),
+        maps: require("./icon/maps.png"),
     },
 };

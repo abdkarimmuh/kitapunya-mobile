@@ -79,6 +79,6 @@ export default createMaterialBottomTabNavigator(
         },
     },
     {
-            shifting: true,
+        shifting: true,
     }
 );

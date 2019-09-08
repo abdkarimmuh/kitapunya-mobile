@@ -93,12 +93,12 @@ export default class HomeScreen extends Component {
     render() {
         console.disableYellowBox = true;
         return (
-            <View style={{ flex:1 }}>
+            <View style={{ flex:1, backgroundColor: Color.backgroudDefault }}>
                 {this._renderHeader()}
                 <ScrollView style={{ flex:1 }}>
                     <View style={styles.container}>
                         <Title style={styles.titleHome}>Pilih Kategori Campaign</Title>
-                        <HomeMenu/>
+                        <HomeMenu />
                         <Title style={styles.titleHome}>Lihat Campaign Terbaru</Title>
                         <View style={styles.containerCard}>
                             <DonationItem />
