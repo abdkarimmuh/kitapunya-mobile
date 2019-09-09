@@ -62,7 +62,7 @@ export default class ProfileScreen extends Component {
 
     }
 
-    _renderHeader = () => (
+    renderHeader = () => (
         <View style={styles.containerHeader}>
             <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
             <View style={styles.textContainer}>
@@ -72,7 +72,7 @@ export default class ProfileScreen extends Component {
         </View>
     );
 
-    _renderMenu = () => (
+    renderMenu = () => (
         <View style={{marginTop: 16}}>
             <TouchableOpacity
                 onPress={() => {
@@ -103,9 +103,9 @@ export default class ProfileScreen extends Component {
         return (
             <View style={{backgroundColor: Color.backgroudDefault, flex: 1}}>
                 <Container>
-                    {this._renderHeader()}
+                    {this.renderHeader()}
                 </Container>
-                {this._renderMenu()}
+                {this.renderMenu()}
             </View>
             
         );

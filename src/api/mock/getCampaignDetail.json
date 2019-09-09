@@ -1,35 +1,52 @@
 {
     "id": 0,
-    "label": "Demetrius Herman",
-    "judul": "Ryder Breitenberg",
-    "deskripsi": "Ea unde iusto. Qui doloremque enim quod libero assumenda ea sunt soluta ea.",
-    "image_url": "https://i.ytimg.com/vi/JbmSFmI8M_M/hqdefault.jpg",
-    "lembaga": "Kristina",
-    "foto_lembaga": "https://s3.amazonaws.com/uifaces/faces/twitter/_scottburgess/128.jpg",
-    "barang_total": 23,
-    "barang_terkumpul": 10,
-    "sisa_waktu": 10,
-    "progres_barang": 0.3,
-    "jenis_barang": [
-        "Jaquelin Bashirian",
-        "Shanny Weissnat",
-        "Jessica Cummerata",
-        "Dr. Palma Parker",
-        "Adell Botsford",
-        "Marlene Berge",
-        "Rebecca Stanton",
-        "Steve Hammes",
-        "Eliseo Mills MD",
-        "Tyrell Shields",
-        "Abbigail Schneider",
-        "Marcus Runte",
-        "Sheridan Ward",
-        "Jan Mann",
-        "Deshaun Schoen",
-        "Dewitt Pouros",
-        "Joanie Roberts I",
-        "Tania Fritsch",
-        "Miss Tabitha Jacobs",
-        "Yazmin Koelpin"
+    "title": "Ayo Waqaf Mukena",
+    "description": "MUKENA merupakan salah satu pakaian berharga bagi seorang perempuan dalam menjalankan ibadah. Hanya saja, tak semua orang mampu membelinya. Banyak saudara muslimah di sekitar kita yang masih bertahan dengan mukena lamanya yang sudah tak layak pakai. \n\nKita tahu bahwa membantu saudara seiman dan seagama merupakan amal shaleh. Apalagi, jika kita mampu membantu mereka dalam menjalankan ibadah, tentu pahala yang kita raih akan terus mengalir.",
+    "image_url": "https://www.islampos.com/wp-content/uploads/2017/01/BANNER-MUKENA-2017-WEB.jpg",
+    "lembaga": "Islampos",
+    "day": 32,
+    "percent": 0.5,
+    "barang": [
+        {
+            "nama": "Mukena",
+            "real_qty": 70,
+            "max_qty": 100
+        },
+        {
+            "nama": "Sejadah",
+            "real_qty": 50,
+            "max_qty": 100
+        },
+        {
+            "nama": "Sarung",
+            "real_qty": 10,
+            "max_qty": 100
+        }
+    ],
+    "donatur": [
+        {
+            "nama": "Anonim",
+            "image_url": null,
+            "barang": [
+                {
+                    "nama": "Sajadah",
+                    "qty": 10
+                }
+            ]
+        },
+        {
+            "nama": "Zaskia Sungkar",
+            "image_url": "https://media.matamata.com/thumbs/2019/02/01/92049-kamar-wardrobe-zaskia-sungkar/745x489-img-92049-kamar-wardrobe-zaskia-sungkar.jpg",
+            "barang": [
+                {
+                    "nama": "Mukena",
+                    "qty": 21
+                },
+                {
+                    "nama": "Sajadah",
+                    "qty": 10
+                }
+            ]
+        }
     ]
 }

@@ -1,24 +1,23 @@
 import React, { Component } from "react";
 import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { TabView, TabBar } from "react-native-tab-view";
 import { 
     Container,
     Paragraph,
     Subheading, 
-    Button, 
     ProgressBar, 
     Text,
-    Title
+    Title,
+    Loading
 } from "@app/components";
 
-import { 
-    BarangScreen, DonaturScreen
-} from "@app/screens";
+import { BarangScreen, DonaturScreen } from "@app/screens";
 
-import { TabView, TabBar } from "react-native-tab-view";
 import Images from "@app/assets/images";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import { Metrics } from "@app/themes";
+import { Mock } from "@app/api";
 import NavigationServices from "@app/services/NavigationServices";
 
 const DescriptionRoute = ({data}) => (
@@ -34,7 +33,8 @@ export default class DetailDonationScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: "",
+            data: {},
+            isFetching: true,
             error: false,
             index: 0,
             routes: [
@@ -43,6 +43,22 @@ export default class DetailDonationScreen extends Component {
                 { key: "three", title: "Donatur" }
             ]
         };
+    }
+
+    componentDidMount() {
+        this.getDetailCampaignMock();
+    }
+
+    getDetailCampaignMock = async () => {
+        Mock.create()
+        .getCampaignDetail()
+        .then(res => {
+            this.setState({ data: res.data, isFetching: false })
+        })
+        .catch(err => {
+            console.log("ERR", err)
+            this.setState({ error: true, isFetching: true })
+        })
     }
 
     _renderTabBar = props => (
@@ -59,11 +75,11 @@ export default class DetailDonationScreen extends Component {
     _renderScene = ({ route }) => {
         switch (route.key) {
             case 'one':
-                return <DescriptionRoute data={'lallala'} />;
+                return <DescriptionRoute data={this.state.data.description} />;
             case 'two':
-                return <BarangScreen data={'lallala'} />;
+                return <BarangScreen data={this.state.data.barang} />;
             case 'three':
-                return <DonaturScreen data={'lallala'} />;
+                return <DonaturScreen data={this.state.data.donatur} />;
             default:
                 return null;
         }
@@ -76,13 +92,13 @@ export default class DetailDonationScreen extends Component {
     renderProgressBar = () => {
         return (
             <View style={{ paddingTop: 6}}>
-                <ProgressBar progress={0.5} color={Color.primaryColor} style={{ marginBottom: -6 }} />
+                <ProgressBar progress={this.state.data.percent} color={Color.primaryColor} style={{ marginBottom: -6 }} />
                 <View style={Styles.itemDonationDetail}>
                     <View style={{ flexDirection: "row" }}>
                         <Subheading>Dibuat oleh </Subheading>
-                        <Subheading style={{ fontWeight: "bold" }}>Jhon Doe</Subheading>
+                        <Subheading style={{ fontWeight: "bold" }}>{this.state.data.lembaga}</Subheading>
                     </View>
-                    <Subheading>Days</Subheading>
+                    <Subheading>{this.state.data.day} Hari lagi</Subheading>
                 </View>
             </View>
         )
@@ -91,7 +107,11 @@ export default class DetailDonationScreen extends Component {
     renderHeader = () => {
         return(
             <>
-                <Image source={Images.background.backgroundLogin} style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} />
+                {
+                    ( this.state.data.image_url == null || this.state.data.image_url == "" )
+                    ? <Image source={Images.background.backgroundLogin} style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} />
+                    : <Image source={{uri: this.state.data.image_url}} style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} />
+                }
                 <View style={Styles.containerBtnDonasi}>
                     <TouchableOpacity onPress={() => this.pressDonation("Donasi")}>
                         <View style={Styles.btnDonasi}>
@@ -100,8 +120,8 @@ export default class DetailDonationScreen extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 28, marginHorizontal: 24, marginBottom: 16 }}>
-                    <Title style={{ fontWeight: "bold" }}>Title Donasi</Title>
+                <View style={{ marginTop: 32, marginHorizontal: 24, marginBottom: 12 }}>
+                    <Title style={{ fontWeight: "bold" }}>{this.state.data.title}</Title>
                     {this.renderProgressBar()}
                 </View>
             </>
@@ -109,6 +129,9 @@ export default class DetailDonationScreen extends Component {
     }
 
     render() {
+        if(this.state.isFetching) {
+            return(<View style={{padding: 16}}><Loading/></View>)
+        } else {
         return (
             <View style={{flex: 1}}>
                 {this.renderHeader()}
@@ -121,5 +144,6 @@ export default class DetailDonationScreen extends Component {
                 />
             </View>
         );
+        }
     }
 }

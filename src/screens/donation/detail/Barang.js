@@ -24,32 +24,31 @@ export default class BarangScreen extends Component {
         );
     }
 
-    renderItem = ({data}) => {
-        return (
+    renderItem = ({data}) => (
+        data.map((item)=> (
             <View style={{ marginTop: 24 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                    <Text style={{ fontWeight: "500", fontSize: 18 }}>Mukena</Text>
+                    <Text style={{ fontWeight: "500", fontSize: 18 }}>{item.nama}</Text>
                     <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
                         <View style={{ width: 100, alignItems: "center" }}>
-                            <Text style={{ fontWeight: "500", fontSize: 16 }}>{data}</Text>
+                            <Text style={{ fontWeight: "500", fontSize: 16 }}>{item.real_qty}</Text>
                         </View>
                         <View style={{ width: 100, alignItems: "center" }}>
-                            <Text style={{ fontWeight: "500", fontSize: 16 }}>20</Text>
+                            <Text style={{ fontWeight: "500", fontSize: 16 }}>{item.max_qty}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={{ width: '100%', height: 1, backgroundColor: Color.dividerColor, marginTop: 12 }}/>
             </View>
-        );
-    }
+        ))
+    )
 
     render() {
         return (
             <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
                 <Container>
                     {this.renderHeader()}
-                    {this.renderItem({data:this.props.data})}
-                    {this.renderItem({data:this.props.data})}
+                    {this.renderItem({data: this.props.data})}
                 </Container>
             </ScrollView>
         );

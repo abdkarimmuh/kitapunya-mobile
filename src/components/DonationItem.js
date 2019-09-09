@@ -34,7 +34,7 @@ export default class DonationItem extends Component {
                         <Caption numberOfLines={1}>{this.props.description}</Caption>
                         <ProgressBar progress={this.props.percent} color={Color.primaryColor} style={{ marginBottom: -12 }} />
                         <View style={Styles.itemDaysProgresiveDay}>
-                            <Caption>{this.props.day} Days</Caption>
+                            <Caption>{this.props.day} Hari lagi</Caption>
                         </View>
                     </View>
                 </View>

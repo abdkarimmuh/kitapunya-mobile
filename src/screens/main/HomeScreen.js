@@ -127,8 +127,8 @@ export default class HomeScreen extends Component {
     renderCurrentCampaign = () => {
         if(this.state.isFetchingCampaign) {
             return(<View style={{padding: 16}}><Loading/></View>)
-        } else if(this.state.campaign===null) {
-            return(<EmptyData/>)
+        } else if(this.state.campaign==null||this.state.campaign=='') {
+            return(<View style={{marginTop: 16}}><EmptyData/></View>)
         } else {
             return(
                 this.state.campaign.map((item) => (
@@ -143,7 +143,6 @@ export default class HomeScreen extends Component {
                 ))
             )
         }
-        
     }
 
     render() {

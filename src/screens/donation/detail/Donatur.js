@@ -10,24 +10,36 @@ import Styles from "@app/assets/styles";
 
 export default class DonaturScreen extends Component {
 
-    renderDonatur = () => {
-        return (
+    renderDonatur = ({data}) => (
+        data.map((item) => (
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 24 }}>
-                <Image source={Images.avatar.avatarDefault} style={Styles.avatarDonatur} />
+                {
+                    ( item.image_url == null || item.image_url == "" )
+                    ? <Image source={Images.avatar.avatarDefault} style={Styles.avatarDonatur} />
+                    : <Image source={{uri: item.image_url}} style={Styles.avatarDonatur} />
+                }
                 <View style={{ alignSelf: "center", marginLeft: 16 }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Nama Donatur</Text>
-                    <Text style={{ fontSize: 12, color: Color.grey }}>Barang yang di donasikan</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.nama}</Text>
+                    <View style={{ flexDirection: "row"}}>
+                    {
+                        item.barang.map((barang, index) => (
+                            <View style={{ flexDirection: "row"}}>
+                            { (index != 0) && <Text style={{ fontSize: 12, color: Color.grey }}>, </Text> }
+                            <Text style={{ fontSize: 12, color: Color.grey }}>{barang.qty} {barang.nama}</Text>
+                            </View>
+                        ))
+                    }
+                    </View>
                 </View>
             </View>
-        );
-    }
+        ))
+    )
 
     render() {
         return (
             <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
                 <Container>
-                    {this.renderDonatur()}
-                    {this.renderDonatur()}
+                    {this.renderDonatur({data: this.props.data})}
                 </Container>
             </ScrollView>
         );

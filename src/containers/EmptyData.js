@@ -4,7 +4,7 @@ import { Card, Title } from "react-native-paper";
 export default class EmptyData extends Component {
     render() {
         return (
-            <Card style={{ widht: "100%", padding: 24 }}>
+            <Card style={{ widht: "100%", padding: 24, elevation: 4 }}>
                 <Card.Content>
                     <Title style={{ textAlign: "center" }}>Data Kosong</Title>
                 </Card.Content>
