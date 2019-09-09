@@ -89,12 +89,26 @@ export default StyleSheet.create({
         paddingRight: 6,
         paddingLeft: 6,
     },
-    btnDonasi: {
+    containerBtnDonasi: {
         position: "absolute",
         top: Metrics.HightCarousel - 24,
         alignSelf: "center",
+    },
+    btnDonasi: {
+        elevation: 4,
+        borderRadius: 2,
         width: 140,
-        height: 48
+        height: 48,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: Color.primaryColor,
+        flexDirection: "row"
+    },
+    imgBtnDonation: {
+        marginRight: 8,
+        width: 18,
+        height: 18,
+        resizeMode: "contain"
     },
     imgBtn: {
         marginRight: 6,

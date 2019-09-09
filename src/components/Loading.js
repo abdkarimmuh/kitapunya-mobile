@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.8)"
+        backgroundColor: Color.transparent
     },
     horizontal: {
         flexDirection: "row",

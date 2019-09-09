@@ -14,15 +14,27 @@ export default class DonationItem extends Component {
 
     render() {
         return (
-            <Card onPress={() => this.pressCategory("Detail")}>
+            <Card 
+                style = {{ elevation: 2 }}
+                onPress={() => this.pressCategory("Detail")}>
                 <View style={Styles.itemDonation}>
-                    <Image source={Images.background.backgroundLogin} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation }} />
-                    <View style={{ paddingLeft: 16, paddingRight: 16, flex: 1 }}>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Card title</Text>
-                        <Caption>Card content</Caption>
-                        <ProgressBar progress={0.5} color={Color.primaryColor} style={{ marginBottom: -12 }} />
+                    {
+                        (this.props.imageUrl == '' || this.props.imageUrl == null)
+                        ? <Image source={Images.background.backgroundLogin} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation, resizeMode: "cover" }} />
+                        : <Image source={{uri: this.props.imageUrl}} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation, resizeMode: "cover" }}/>
+                    }
+                    
+                    <View 
+                        style={{ paddingLeft: 16, paddingRight: 16, flex: 1 }}>
+                        <Text 
+                            numberOfLines={1}
+                            style={{ fontSize: 18, fontWeight: "bold" }}>
+                            {this.props.title}
+                        </Text>
+                        <Caption numberOfLines={1}>{this.props.description}</Caption>
+                        <ProgressBar progress={this.props.percent} color={Color.primaryColor} style={{ marginBottom: -12 }} />
                         <View style={Styles.itemDaysProgresiveDay}>
-                            <Caption>Days</Caption>
+                            <Caption>{this.props.day} Days</Caption>
                         </View>
                     </View>
                 </View>

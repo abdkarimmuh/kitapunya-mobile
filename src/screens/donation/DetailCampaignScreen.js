@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { 
     Container,
     Paragraph,
@@ -92,14 +92,13 @@ export default class DetailDonationScreen extends Component {
         return(
             <>
                 <Image source={Images.background.backgroundLogin} style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} />
-                <View style={Styles.btnDonasi}>
-                    <Button 
-                        mode="contained" 
-                        dark
-                        onPress={() => this.pressDonation("Donasi")}>
-                        <Image source={Images.icon.gift} style={Styles.imgBtn} />
-                        <Text style={{ color: Color.white }}>   DONASI</Text>
-                    </Button>
+                <View style={Styles.containerBtnDonasi}>
+                    <TouchableOpacity onPress={() => this.pressDonation("Donasi")}>
+                        <View style={Styles.btnDonasi}>
+                            <Image source={Images.icon.gift} style={Styles.imgBtnDonation} />
+                            <Text style={{ color: Color.white, fontSize: 16 }}>DONASI</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 28, marginHorizontal: 24, marginBottom: 16 }}>
                     <Title style={{ fontWeight: "bold" }}>Title Donasi</Title>

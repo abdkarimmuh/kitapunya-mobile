@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { View, Image, StyleSheet, ScrollView } from "react-native";
-import { HomeMenu } from "@app/containers";
+import { HomeMenu, EmptyData } from "@app/containers";
 import { 
     Text,
     Title,
-    DonationItem
+    DonationItem,
+    Loading
 } from "@app/components";
 
 import Color from "@app/assets/colors";
@@ -58,55 +59,104 @@ export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            user: {},
+            isFetchingUser: true,
+            campaign: [],
+            isFetchingCampaign: true,
             error: false
         };
     }
 
     componentDidMount() {
+        this.getUserMock();
         this.getCampaignCurrentMock();
     }
 
     getCampaignCurrentMock = async () => {
         Mock.create()
-        .getCarousel()
+        .getCampaign()
         .then(res => {
-            this.setState({ data: res.data })
+            this.setState({ campaign: res.data, isFetchingCampaign: false })
         })
         .catch(err => {
             console.log("ERR", err)
-            this.setState({
-                error: true
-            })
+            this.setState({ error: true, isFetchingCampaign: true })
         })
     }
 
-    _renderHeader = () => (
-        <View style={styles.containerHeader}>
-            <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
-            <View style={styles.textContainer}>
-                <Text style={styles.textHeader}>Welcome</Text>
-                <Text style={styles.textHeaderName}>Name</Text>
-            </View>
-        </View>
-    );
+    getUserMock = async () => {
+        Mock.create()
+        .getUser()
+        .then(res => {
+            this.setState({ user: res.data, isFetchingUser: false })
+        })
+        .catch(err => {
+            console.log("ERR", err)
+            this.setState({ error: true, isFetchingUser: true })
+        })
+    }
+
+    renderHeader = () => {
+        if(this.state.isFetchingUser) {
+            return(
+                <View style={styles.containerHeader}>
+                    <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
+                    <View style={styles.textContainer}>
+                        <Text style={styles.textHeader}>Welcome</Text>
+                        <Text style={styles.textHeaderName}>Name</Text>
+                    </View>
+                </View>
+            )
+        } else {
+            return(
+                <View style={styles.containerHeader}>
+                    {
+                        (this.state.user.avatar == '' || this.state.user.avatar == null)
+                        ? <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
+                        : <Image style={styles.imageProfile} source={{uri: this.state.user.avatar}} />
+                    }
+                    <View style={styles.textContainer}>
+                        <Text style={styles.textHeader}>Welcome</Text>
+                        <Text style={styles.textHeaderName}>{this.state.user.full_name}</Text>
+                    </View>
+                </View>
+            )
+        }
+    };
+
+    renderCurrentCampaign = () => {
+        if(this.state.isFetchingCampaign) {
+            return(<View style={{padding: 16}}><Loading/></View>)
+        } else if(this.state.campaign===null) {
+            return(<EmptyData/>)
+        } else {
+            return(
+                this.state.campaign.map((item) => (
+                    <View style={styles.containerCard}>
+                        <DonationItem 
+                            title={item.title} 
+                            description={item.description}
+                            imageUrl={item.image_url}
+                            day={item.day}
+                            percent={item.percent} />
+                    </View>
+                ))
+            )
+        }
+        
+    }
 
     render() {
         console.disableYellowBox = true;
         return (
             <View style={{ flex:1, backgroundColor: Color.backgroudDefault }}>
-                {this._renderHeader()}
+                {this.renderHeader()}
                 <ScrollView style={{ flex:1 }}>
                     <View style={styles.container}>
                         <Title style={styles.titleHome}>Pilih Kategori Campaign</Title>
                         <HomeMenu />
                         <Title style={styles.titleHome}>Lihat Campaign Terbaru</Title>
-                        <View style={styles.containerCard}>
-                            <DonationItem />
-                        </View>
-                        <View style={styles.containerCard}>
-                            <DonationItem />
-                        </View>
+                        {this.renderCurrentCampaign()}
                     </View>
                 </ScrollView>
             </View>
