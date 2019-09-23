@@ -67,7 +67,7 @@ export default class EditProfil extends Component {
                     <TextInput
                         style={{ backgroundColor: Color.transparent }}
                         label="Password"
-                        keyboardType={"visible-password"}
+                        secureTextEntry
                         value={this.state.password}
                         onChangeText={password =>  this.setState({password: password})}
                     />
@@ -75,7 +75,7 @@ export default class EditProfil extends Component {
                     <TextInput
                         style={{ backgroundColor: Color.transparent }}
                         label="Confirm Password"
-                        keyboardType={"visible-password"}
+                        secureTextEntry
                         value={this.state.confirmPassword}
                         onChangeText={confirmPassword =>  this.setState({confirmPassword: confirmPassword})}
                     />

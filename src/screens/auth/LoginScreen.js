@@ -43,12 +43,16 @@ export default class LoginScreen extends Component {
                 {TextInputLoginRegister(
                     "Email",
                     this.state.email,
-                    (email) => { this.setState({ email }) }
+                    (email) => { this.setState({ email }) },
+                    false,
+                    "email-address"
                 )}
                 {TextInputLoginRegister(
                     "Password",
                     this.state.password,
-                    (password) => { this.setState({ password }) }
+                    (password) => { this.setState({ password }) },
+                    true,
+                    "default"
                 )}
             </View>
         )

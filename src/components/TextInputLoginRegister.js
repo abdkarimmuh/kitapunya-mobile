@@ -6,7 +6,9 @@ import Styles from "@app/assets/styles";
 const TextInputLoginRegister = (
     label,
     value,
-    onChangeText
+    onChangeText,
+    isPassword,
+    keyboardType
 ) => (
         <TextInput
             label={label}
@@ -15,6 +17,8 @@ const TextInputLoginRegister = (
             value={value}
             onChangeText={onChangeText}
             style={Styles.textInput}
+            secureTextEntry={isPassword}
+            keyboardType={keyboardType}
         />
     );
 

@@ -4,14 +4,16 @@ import { Metrics } from "@app/themes";
 
 export default StyleSheet.create({
     bgImage: {
-        width: "100%",
-        height: "100%",
+        flex: 1,
+    },
+    containerRegister: {
+        flex: 1
     },
     login: {
+        flex: 1,
         flexDirection: "column",
         justifyContent: "center",
-        width: "100%",
-        height: "100%",
+        alignContent: "center",
         padding: 24
     },
     imgLogin: {

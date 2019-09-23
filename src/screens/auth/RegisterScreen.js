@@ -33,8 +33,7 @@ export default class Register extends Component {
     onPressRegister = () => {
         console.log("Register " + this.state.email + " " + this.state.password + this.state.firstName)
         this.setState({
-            firstName: "",
-            lastName: "",
+            full_name: "",
             email: "",
             password: "",
             confrimPassword: ""
@@ -46,29 +45,32 @@ export default class Register extends Component {
         return (
             <View>
                 {TextInputLoginRegister(
-                    "Nama Depan",
-                    this.state.firstName,
-                    (firstName) => { this.setState({ firstName }) }
-                )}
-                {TextInputLoginRegister(
-                    "Nama Belakang",
-                    this.state.lastName,
-                    (lastName) => { this.setState({ lastName }) }
+                    "Full Name",
+                    this.state.full_name,
+                    (full_name) => { this.setState({ full_name }) },
+                    false,
+                    "default"
                 )}
                 {TextInputLoginRegister(
                     "Email",
                     this.state.email,
-                    (email) => { this.setState({ email }) }
+                    (email) => { this.setState({ email }) },
+                    false,
+                    "email-address"
                 )}
                 {TextInputLoginRegister(
                     "Password",
                     this.state.password,
-                    (password) => { this.setState({ password }) }
+                    (password) => { this.setState({ password }) },
+                    true,
+                    "default"
                 )}
                 {TextInputLoginRegister(
                     "Konfirmasi Password",
                     this.state.confrimPassword,
-                    (confrimPassword) => { this.setState({ confrimPassword }) }
+                    (confrimPassword) => { this.setState({ confrimPassword }) },
+                    true,
+                    "default"
                 )}
             </View>
         )
@@ -89,7 +91,7 @@ export default class Register extends Component {
     render() {
         return (
             <ImageBackground source={Images.background.backgroundLogin} style={Styles.bgImage}>
-                <ScrollView>
+                <ScrollView style={Styles.containerRegister}>
                     <Container style={Styles.login}>
                         <Image source={Images.logo.iconHeader} style={Styles.imgLogin} />
                         {this.renderInput()}

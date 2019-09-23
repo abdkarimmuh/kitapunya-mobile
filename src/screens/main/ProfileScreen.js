@@ -4,6 +4,7 @@ import { Container } from "@app/components";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import Images from "@app/assets/images";
+import { Mock } from "@app/api";
 import NavigationServices from "@app/services/NavigationServices";
 
 const styles = StyleSheet.create({
@@ -54,6 +55,31 @@ const styles = StyleSheet.create({
 
 export default class ProfileScreen extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {},
+            isFetchingUser: true,
+            error: false
+        };
+    }
+
+    componentDidMount() {
+        this.getUserMock();
+    }
+
+    getUserMock = async () => {
+        Mock.create()
+        .getUser()
+        .then(res => {
+            this.setState({ user: res.data, isFetchingUser: false })
+        })
+        .catch(err => {
+            console.log("ERR", err)
+            this.setState({ error: true, isFetchingUser: true })
+        })
+    }
+
     pressEditProfil = () => {
         NavigationServices.navigate("EditProfile");
     }
@@ -62,15 +88,33 @@ export default class ProfileScreen extends Component {
 
     }
 
-    renderHeader = () => (
-        <View style={styles.containerHeader}>
-            <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
-            <View style={styles.textContainer}>
-                <Text style={styles.textHeader}>Name</Text>
-                <Text style={styles.textHeaderName}>Email</Text>
-            </View>
-        </View>
-    );
+    renderHeader = () => {
+        if(this.state.isFetchingUser) {
+            return(
+                <View style={styles.containerHeader}>
+                    <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
+                    <View style={styles.textContainer}>
+                        <Text style={styles.textHeader}>Name</Text>
+                        <Text style={styles.textHeaderName}>Email</Text>
+                    </View>
+                </View>
+            )
+        } else {
+            return(
+                <View style={styles.containerHeader}>
+                    {
+                        (this.state.user.avatar == '' || this.state.user.avatar == null)
+                        ? <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
+                        : <Image style={styles.imageProfile} source={{uri: this.state.user.avatar}} />
+                    }
+                    <View style={styles.textContainer}>
+                        <Text style={styles.textHeader}>{this.state.user.full_name}</Text>
+                        <Text style={styles.textHeaderName}>{this.state.user.email}</Text>
+                    </View>
+                </View>
+            )
+        }
+    };
 
     renderMenu = () => (
         <View style={{marginTop: 16}}>
