@@ -3,6 +3,8 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import { SplashScreen } from "@app/screens";
 import AuthStack from "./AuthStack";
 import MainBottom from "./MainBottom";
+import CampaignStack from "./CampaignStack";
+import ProfileStack from "./ProfileStack";
 
 const InitialStack = createStackNavigator(
     {
@@ -23,7 +25,9 @@ const InitialStack = createStackNavigator(
             navigationOptions: {
                 header: null
             }
-        }
+        },
+        ...CampaignStack,
+        ...ProfileStack
     },
     {
         initialRouteName: "Splash"

@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import { View, Image, ScrollView } from "react-native";
-import { 
-    Container, 
-    Text, 
-    Button, 
-    Caption, 
-    TextInput, 
-    Checkbox 
-} from "@app/components";
+import { View, Image, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { Container, Text, Button, Caption, TextInput, Checkbox } from "@app/components";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import Images from "@app/assets/images"
@@ -16,6 +9,17 @@ import NavigationServices from "@app/services/NavigationServices";
 const Divider = (
     <View style={{ marginVertical: 12 }}></View>
 );
+
+const styles = StyleSheet.create({
+    containerBtnImage: { width: "45%", backgroundColor: Color.black4A },
+    containerBtnImageMap: { width: "100%", backgroundColor: Color.primaryColor },
+    btnSubmit: { marginRight: 16, backgroundColor: Color.grey },
+    txtTitle: { fontSize: 18, fontWeight: "bold" },
+    txtInputItem: { backgroundColor: Color.white, width: "45%", marginLeft: 24 },
+    btnImage: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.textColor, flexDirection: "row" },
+    btnImageMap: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.primaryColor, flexDirection: "row" },
+    txtBtnImage: { color: Color.white, fontSize: 16 },
+});
 
 export default class DonationScreen extends Component {
 
@@ -44,7 +48,7 @@ export default class DonationScreen extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
     }
 
@@ -63,31 +67,22 @@ export default class DonationScreen extends Component {
     renderChecked = () => {
         const { checked } = this.state;
         return (
-            <View style={{flexDirection: "row", alignItems: "center"}}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Checkbox
                     status={checked ? "checked" : "unchecked"}
                     onPress={() => { this.setState({ checked: !checked }); }}
                 />
-                <Caption> Anonim</Caption>
+                <Text style={styles.txtTitle}> Anonim</Text>
             </View>
-            
+
         );
     }
 
     renderButtonSubmit = () => {
-        return(
-            <View style={{flexDirection: "row", alignSelf: "flex-end"}}>
-                <Button
-                    mode="contained"
-                    onPress={() => (NavigationServices.goBack())}
-                    dark
-                    style={{ marginRight: 8, backgroundColor: Color.grey }}
-                    >BATAL</Button>
-                <Button
-                    mode="contained"
-                    onPress={() => (this.postDonation("Image", this.state.id))}
-                    dark
-                    >DONASI</Button>
+        return (
+            <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
+                <Button mode="contained" onPress={() => (NavigationServices.goBack())} dark style={styles.btnSubmit}>BATAL</Button>
+                <Button mode="contained" onPress={() => (this.postDonation("Image", this.state.id))} dark>DONASI</Button>
             </View>
         );
     }
@@ -96,56 +91,57 @@ export default class DonationScreen extends Component {
         return (
             <View>
                 <Text>Campaign</Text>
-                <Text style={{fontSize: 18, fontWeight: "bold"}}>Judul Campaign</Text>
+                <Text style={styles.txtTitle}>Judul Campaign</Text>
             </View>
         );
     }
 
     renderBarang = () => {
-        return(
+        return (
             this.state.item.map((data, index) => (
                 <View key={index}>
-                <View style={Styles.containerBarang}>
-                    <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Checkbox
-                            status={data.check ? "checked" : "unchecked"}
-                            onPress={() => {
-                                let itemCopy = JSON.parse(JSON.stringify(this.state.item))
-                                itemCopy[index].check = !data.check
-                                this.setState({
-                                    item:itemCopy 
-                                }) 
-                            }}
-                        />
-                        <Caption>{data.name}</Caption>
+                    <View style={Styles.containerBarang}>
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Checkbox
+                                status={data.check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                    let itemCopy = JSON.parse(JSON.stringify(this.state.item))
+                                    itemCopy[index].check = !data.check
+                                    this.setState({
+                                        item: itemCopy
+                                    })
+                                }}
+                            />
+                            <Text style={styles.txtTitle}>{data.name}</Text>
+                        </View>
                     </View>
-                </View>
-                {data.check && 
-                <View style={Styles.containerOptionBarang}>
-                    <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                        <TextInput
-                            style={{ backgroundColor: Color.white, width: "45%", marginLeft: 24 }}
-                            label="Jumlah"
-                            keyboardType={"number-pad"}
-                            value={data.qty}
-                            onChangeText={qty => {
-                                let itemCopy = JSON.parse(JSON.stringify(this.state.item))
-                                itemCopy[index].qty = qty
-                                this.setState({
-                                    item:itemCopy 
-                                }) 
-                            }}
-                        />
-                        <Button
-                            mode="contained"
-                            onPress={() => (this.pressImage())}
-                            dark
-                            icon="camera"
-                            style={{ width: "45%", backgroundColor: Color.black4A }}
-                            labelStyle={{color: Color.white}}>Upload Image</Button>
-                    </View>
-                </View>
-                }
+                    {data.check &&
+                        <View style={Styles.containerOptionBarang}>
+                            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                                <TextInput
+                                    style={styles.txtInputItem}
+                                    label="Jumlah"
+                                    keyboardType={"number-pad"}
+                                    value={data.qty}
+                                    onChangeText={qty => {
+                                        let itemCopy = JSON.parse(JSON.stringify(this.state.item))
+                                        itemCopy[index].qty = qty
+                                        this.setState({
+                                            item: itemCopy
+                                        })
+                                    }}
+                                />
+                                <View style={styles.containerBtnImage}>
+                                    <TouchableOpacity onPress={() => (this.pressImage())}>
+                                        <View style={styles.btnImage}>
+                                            <Image source={Images.icon.cameraWhite} style={Styles.imgBtnDonation} />
+                                            <Text style={styles.txtBtnImage}>Upload Image</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    }
                 </View>
             ))
         );
@@ -153,39 +149,38 @@ export default class DonationScreen extends Component {
 
     render() {
         return (
-            <ScrollView style={{backgroundColor: Color.backgroudDefault}}>
+            <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
                 <View>
-                <Container>
-                    {this.renderTitle()}
-                </Container>
-                <View>
-                {this.renderBarang()} 
-                </View>    
-                <Container>
-                    <TextInput
-                        style={{ backgroundColor: Color.transparent }}
-                        label="Alamat"
-                        value={this.state.text}
-                        multiline={true}
-                        numberOfLines={4}
-                        onChangeText={text => this.setState({ text })}
-                    />
-                    {Divider}
-                    <Button
-                        mode="contained"
-                        onPress={() => (this.pressLocataion())}
-                        dark
-                        style={{ backgroundColor: Color.black4A }}
-                        labelStyle={{color: Color.white}}>
-                        <Image source={Images.icon.maps} style={Styles.imgBtn} />
-                        <Text style={{ color: Color.white }}>   LOKASI</Text>
-                    </Button>
-                    {Divider}
-                    <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", marginTop: 16}}>
-                        {this.renderChecked()}
-                        {this.renderButtonSubmit()}
+                    <Container>
+                        {this.renderTitle()}
+                    </Container>
+                    <View>
+                        {this.renderBarang()}
                     </View>
-                </Container>
+                    <Container>
+                        <TextInput
+                            style={{ backgroundColor: Color.transparent }}
+                            label="Alamat"
+                            value={this.state.text}
+                            multiline={true}
+                            numberOfLines={4}
+                            onChangeText={text => this.setState({ text })}
+                        />
+                        {Divider}
+                        <View style={styles.containerBtnImageMap}>
+                            <TouchableOpacity onPress={() => (this.pressLocataion())}>
+                                <View style={styles.btnImageMap}>
+                                    <Image source={Images.icon.mapWhite} style={Styles.imgBtnDonation} />
+                                    <Text style={styles.txtBtnImage}>Lokasi</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        {Divider}
+                        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", marginTop: 16 }}>
+                            {this.renderChecked()}
+                            {this.renderButtonSubmit()}
+                        </View>
+                    </Container>
                 </View>
             </ScrollView>
         );

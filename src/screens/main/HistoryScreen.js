@@ -12,40 +12,40 @@ import { STATUS_JEMPUT, STATUS_KIRIM, STATUS_SALURKAN, STATUS_TERIMA, STATUS_TOL
 
 export default class HistoryScreen extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             data: [],
             isFetching: true
         }
     }
-    
+
     componentDidMount = () => {
         this.getHistoryMock();
     }
-    
-    getHistoryMock = () =>{
+
+    getHistoryMock = () => {
         Mock.create()
-        .getHistory()
-        .then(res => {
-            this.setState({ data: res.data, isFetching: false })
-        })
-        .catch(err => {
-            console.log("ERR", err)
-            this.setState({
-                error: true
+            .getHistory()
+            .then(res => {
+                this.setState({ data: res.data, isFetching: false })
             })
-        })
+            .catch(err => {
+                console.log("ERR", err)
+                this.setState({
+                    error: true
+                })
+            })
     }
-    
+
     getStatus(status) {
-        if(status==1) {
+        if (status == 1) {
             return STATUS_JEMPUT
-        } else if(status==2) {
+        } else if (status == 2) {
             return STATUS_TERIMA
-        } else if(status==3) {
+        } else if (status == 3) {
             return STATUS_KIRIM
-        } else if(status==4) {
+        } else if (status == 4) {
             return STATUS_SALURKAN
         } else {
             return STATUS_TOLAK
@@ -53,39 +53,39 @@ export default class HistoryScreen extends Component {
     }
 
     getStatusDot(status) {
-        if(status==1) {
+        if (status == 1) {
             return Images.icon.dot_jemput
-        } else if(status==2) {
+        } else if (status == 2) {
             return Images.icon.dot_terima
-        } else if(status==3) {
+        } else if (status == 3) {
             return Images.icon.dot_kirim
-        } else if(status==4) {
+        } else if (status == 4) {
             return Images.icon.dot_salurkan
         } else {
             return Images.icon.dot_tolak
         }
     }
-    
+
     render() {
         return (
-            <ScrollView style={{backgroundColor: Color.backgroudDefault}}>
+            <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
                 <Container style={{ paddingBottom: 0 }}>
-                    { this.state.isFetching && <Loading/> }
-                    { this.state.data===null && <EmptyData/> }
+                    {this.state.isFetching && <Loading />}
+                    {this.state.data === null && <EmptyData />}
                     {
-                        this.state.data.map((d) => (
-                        <View key={d.id} style={Styles.containerHistory}>
-                            <View style={Styles.containerHistoryStatus}>
-                                <Image source={this.getStatusDot(d.status)} style={Styles.imgStatus} />
-                                <View>
-                                    <Text style={Styles.titleStatus}>{this.getStatus(d.status)}</Text>
-                                    <Text>{d.title}</Text>
+                        this.state.data.map((item, index) => (
+                            <View key={item.id} style={Styles.containerHistory} key={index}>
+                                <View style={Styles.containerHistoryStatus}>
+                                    <Image source={this.getStatusDot(item.status)} style={Styles.imgStatus} />
+                                    <View>
+                                        <Text style={Styles.titleStatus}>{this.getStatus(item.status)}</Text>
+                                        <Text>{item.title}</Text>
+                                    </View>
                                 </View>
+                                <Caption>{item.date}</Caption>
                             </View>
-                            <Caption>{d.date}</Caption>
-                        </View>
                         ))
-                    }    
+                    }
                 </Container>
             </ScrollView>
         );

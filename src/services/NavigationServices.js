@@ -1,12 +1,11 @@
-import React, { PureComponent } from "react";
 import { NavigationActions, StackActions } from "react-navigation";
 import { map } from "ramda";
 
 let _navigator;
 
-const setTopLevelNavigator = navigatorRef => {
+function setTopLevelNavigator(navigatorRef) {
     _navigator = navigatorRef;
-};
+}
 
 const goBack = () => _navigator.dispatch(NavigationActions.back());
 const dispatch = action => _navigator.dispatch(action);
@@ -19,9 +18,9 @@ const navigate = (routeName, params, action) => {
             action
         })
     );
-};
+}
 
-const resetStackNavigate = (stack: string[], index = 0) =>
+function resetStackNavigate(stack: string[], index = 0) {
     _navigator.dispatch(
         StackActions.reset({
             index,
@@ -29,6 +28,7 @@ const resetStackNavigate = (stack: string[], index = 0) =>
             actions: map(s => NavigationActions.navigate({ routeName: s }), stack)
         })
     );
+}
 
 export default {
     goBack,
@@ -36,4 +36,4 @@ export default {
     navigate,
     resetStackNavigate,
     setTopLevelNavigator
-};
+}

@@ -5,7 +5,7 @@ const ButtonLoginRegister = (
     onPress
 ) => (
         <Button
-            style={{ padding: 8, marginTop: 12 }}
+            style={{ padding: 8, marginTop: 24 }}
             mode="contained"
             dark
             onPress={onPress}>

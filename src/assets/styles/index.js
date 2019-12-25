@@ -14,13 +14,14 @@ export default StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignContent: "center",
-        padding: 24
+        padding: 48
     },
     imgLogin: {
-        width: 150,
+        width: 250,
         height: 100,
         resizeMode: "contain",
-        alignSelf: "center"
+        alignSelf: "center",
+        marginBottom: 32
     },
     textInput: {
         marginBottom: 16
@@ -93,14 +94,14 @@ export default StyleSheet.create({
     },
     containerBtnDonasi: {
         position: "absolute",
-        top: Metrics.HightCarousel - 24,
+        top: Metrics.HightCarousel - 20,
         alignSelf: "center",
     },
     btnDonasi: {
         elevation: 4,
-        borderRadius: 2,
-        width: 140,
-        height: 48,
+        borderRadius: 4,
+        width: 110,
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: Color.primaryColor,
@@ -108,8 +109,8 @@ export default StyleSheet.create({
     },
     imgBtnDonation: {
         marginRight: 8,
-        width: 18,
-        height: 18,
+        width: 20,
+        height: 20,
         resizeMode: "contain"
     },
     imgBtn: {
@@ -125,24 +126,24 @@ export default StyleSheet.create({
         resizeMode: "cover"
     },
     containerBarang: {
-        padding: 24, 
+        padding: 24,
         backgroundColor: Color.white
     },
     containerOptionBarang: {
-        paddingBottom: 24, 
-        paddingRight: 24, 
-        paddingRight: 24, 
-        marginBottom: 12, 
+        paddingBottom: 24,
+        paddingRight: 24,
+        paddingRight: 24,
+        marginBottom: 12,
         backgroundColor: Color.white
     },
     containerHistory: {
-        marginBottom: 24, 
-        flexDirection: "row", 
-        alignItems: "center", 
+        marginBottom: 24,
+        flexDirection: "row",
+        alignItems: "center",
         justifyContent: "space-between"
     },
     containerHistoryStatus: {
-        flexDirection: "row", 
+        flexDirection: "row",
         alignItems: "center"
     },
     imgStatus: {

@@ -1,28 +1,17 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation";
 import { HeaderDetail } from "@app/components";
-import { ProfileScreen, EditProfilScreen } from "@app/screens";
+import { EditProfilScreen } from "@app/screens";
 import Color from "@app/assets/colors";
 
-export default createStackNavigator({
-    Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-            headerTitle: <HeaderDetail>Profil</HeaderDetail>,
-            headerStyle: {
-                backgroundColor: Color.primaryColor,
-                headerTintColor: "#fff"
-            }
-        }
-    },
+export default {
     EditProfile: {
         screen: EditProfilScreen,
-        navigationOptions: {
-            headerTitle: <HeaderDetail>Edit Profil</HeaderDetail>,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: <HeaderDetail>{navigation.getParam("title")}</HeaderDetail>,
             headerStyle: {
-                backgroundColor: Color.primaryColor
+                backgroundColor: Color.white
             },
-            headerTintColor: "#fff"
-        }
+            headerTintColor: Color.textColor,
+        })
     },
-});
+}

@@ -1,7 +1,7 @@
-import {
-    createStackNavigator
-} from "react-navigation";
-import { HomeScreen, ListCampaignScreen, DetailCampaignScreen, DonationScreen } from "@app/screens";
+import React from "react";
+import { createStackNavigator } from "react-navigation";
+import { HeaderDetail } from "@app/components";
+import { HomeScreen, ListCampaignScreen } from "@app/screens";
 import Color from "@app/assets/colors";
 
 export default createStackNavigator({
@@ -14,31 +14,11 @@ export default createStackNavigator({
     ListCampaign: {
         screen: ListCampaignScreen,
         navigationOptions: ({ navigation }) => ({
-            headerTitle: `${navigation.getParam("title")}`,
+            headerTitle: <HeaderDetail>{navigation.getParam("title")}</HeaderDetail>,
             headerStyle: {
-                backgroundColor: Color.primaryColor
+                backgroundColor: Color.white
             },
-            headerTintColor: "#fff"
-        })
-    },
-    DetailCampaign: {
-        screen: DetailCampaignScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: `${navigation.getParam("title")}`,
-            headerStyle: {
-                backgroundColor: Color.primaryColor
-            },
-            headerTintColor: "#fff"
-        })
-    },
-    Donation: {
-        screen: DonationScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: `${navigation.getParam("title")}`,
-            headerStyle: {
-                backgroundColor: Color.primaryColor
-            },
-            headerTintColor: "#fff"
+            headerTintColor: Color.textColor,
         })
     },
 });

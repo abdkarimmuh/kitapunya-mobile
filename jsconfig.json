@@ -1,22 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "src/",
-    "paths": {
-      "~/*": ["*"],
-      "app/*": ["app/*"],
-      "common/*": ["common/*"],
-      "@app/components": ["components"],
-      "@app/containers": ["containers"],
-      "@app/screens": ["screens"],
-      "@app/services/*": ["services/*"],
-      "@app/api": ["api"],
-      "@app/api/*": ["api/*"],
-      "@app/themes": ["themes"],
-      "@app/assets/*": ["assets/*"],
-      "@app/configs/*": ["configs/*"]
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "src/",
+        "paths": {
+            "~/*": ["*"],
+            "app/*": ["app/*"],
+            "common/*": ["common/*"],
+            "@app/components": ["components"],
+            "@app/containers": ["containers"],
+            "@app/screens": ["screens"],
+            "@app/services/*": ["services/*"],
+            "@app/api": ["api"],
+            "@app/api/*": ["api/*"],
+            "@app/redux/*": ["redux/*"],
+            "@app/themes": ["themes"],
+            "@app/assets/*": ["assets/*"],
+            "@app/utils": ["utils"]
+        }
     }
-  }
 }

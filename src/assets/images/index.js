@@ -1,10 +1,13 @@
 export default {
     logo: {
-        iconSplash: require("./logo/logo_white.png"),
-        iconHeader: require("./logo/logo_banner.png")
+        logo: require("./logo/logo.png"),
+        logoWhite: require("./logo/logo_white.png"),
+        banner: require("./logo/banner.png"),
+        bannerWhite: require("./logo/banner_white.png"),
     },
     avatar: {
-        avatarDefault: require("./avatar/avatar_default.png")
+        avatarPrimary: require("./avatar/avatar_primary.png"),
+        avatarWhite: require("./avatar/avatar_white.png")
     },
     background: {
         backgroundLogin: require("./background/background.png")
@@ -15,14 +18,17 @@ export default {
         graduationCap: require("./icon/graduation_cap.png"),
         houseDamage: require("./icon/house_damage.png"),
         mosque: require("./icon/mosque.png"),
-        signOut: require("./icon/sign_out.png"),
-        userEdit: require("./icon/user_edit.png"),
         user: require("./icon/user.png"),
-        maps: require("./icon/maps.png"),
-        dot_jemput: require("./icon/dot_jemput.png"),
-        dot_terima: require("./icon/dot_terima.png"),
-        dot_kirim: require("./icon/dot_kirim.png"),
-        dot_salurkan: require("./icon/dot_salurkan.png"),
-        dot_tolak: require("./icon/dot_tolak.png"),
+
+        home: require("./icon/home.png"),
+        home_active: require("./icon/home_active.png"),
+        archive: require("./icon/archive.png"),
+        archive_active: require("./icon/archive_active.png"),
+        person: require("./icon/person.png"),
+        person_active: require("./icon/person_active.png"),
+
+        giftWhite: require("./icon/gift_white.png"),
+        mapWhite: require("./icon/map_white.png"),
+        cameraWhite: require("./icon/camera_white.png"),
     },
 };

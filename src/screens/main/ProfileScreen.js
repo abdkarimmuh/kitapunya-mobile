@@ -20,17 +20,17 @@ const styles = StyleSheet.create({
         borderColor: Color.black
     },
     textContainer: {
-      flexDirection: "column",
-      marginLeft: 16
+        flexDirection: "column",
+        marginLeft: 16
     },
     textHeader: {
-      fontWeight: "bold",
-      color: Color.black,
-      fontSize: 18
+        fontWeight: "bold",
+        color: Color.black,
+        fontSize: 18
     },
     textHeaderName: {
-      color: Color.black,
-      fontSize: 14
+        color: Color.black,
+        fontSize: 14
     },
     containerMenu: {
         width: "100%",
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     containerMenuOption: {
         flexDirection: "row",
         alignItems: "center"
-    }, 
+    },
     imgBtn: {
         marginRight: 16,
         width: 20,
@@ -70,18 +70,18 @@ export default class ProfileScreen extends Component {
 
     getUserMock = async () => {
         Mock.create()
-        .getUser()
-        .then(res => {
-            this.setState({ user: res.data, isFetchingUser: false })
-        })
-        .catch(err => {
-            console.log("ERR", err)
-            this.setState({ error: true, isFetchingUser: true })
-        })
+            .getUser()
+            .then(res => {
+                this.setState({ user: res.data, isFetchingUser: false })
+            })
+            .catch(err => {
+                console.log("ERR", err)
+                this.setState({ error: true, isFetchingUser: true })
+            })
     }
 
     pressEditProfil = () => {
-        NavigationServices.navigate("EditProfile");
+        NavigationServices.navigate("EditProfile", { title: "Edit Profil" });
     }
 
     pressLogout = () => {
@@ -89,8 +89,8 @@ export default class ProfileScreen extends Component {
     }
 
     renderHeader = () => {
-        if(this.state.isFetchingUser) {
-            return(
+        if (this.state.isFetchingUser) {
+            return (
                 <View style={styles.containerHeader}>
                     <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
                     <View style={styles.textContainer}>
@@ -100,12 +100,12 @@ export default class ProfileScreen extends Component {
                 </View>
             )
         } else {
-            return(
+            return (
                 <View style={styles.containerHeader}>
                     {
                         (this.state.user.avatar == '' || this.state.user.avatar == null)
-                        ? <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
-                        : <Image style={styles.imageProfile} source={{uri: this.state.user.avatar}} />
+                            ? <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
+                            : <Image style={styles.imageProfile} source={{ uri: this.state.user.avatar }} />
                     }
                     <View style={styles.textContainer}>
                         <Text style={styles.textHeader}>{this.state.user.full_name}</Text>
@@ -117,14 +117,14 @@ export default class ProfileScreen extends Component {
     };
 
     renderMenu = () => (
-        <View style={{marginTop: 16}}>
+        <View style={{ marginTop: 16 }}>
             <TouchableOpacity
                 onPress={() => {
                     this.pressEditProfil();
                 }}>
                 <View style={styles.containerMenu}>
                     <View style={styles.containerMenuOption}>
-                        <Image source={Images.icon.userEdit} style={styles.imgBtn}/>
+                        <Image source={Images.icon.userEdit} style={styles.imgBtn} />
                         <Text style={styles.titleMenu}>Edit Profil</Text>
                     </View>
                 </View>
@@ -135,7 +135,7 @@ export default class ProfileScreen extends Component {
                 }}>
                 <View style={styles.containerMenu}>
                     <View style={styles.containerMenuOption}>
-                        <Image source={Images.icon.signOut} style={styles.imgBtn}/>
+                        <Image source={Images.icon.signOut} style={styles.imgBtn} />
                         <Text style={styles.titleMenu}>Logout</Text>
                     </View>
                 </View>
@@ -145,13 +145,13 @@ export default class ProfileScreen extends Component {
 
     render() {
         return (
-            <View style={{backgroundColor: Color.backgroudDefault, flex: 1}}>
+            <View style={{ backgroundColor: Color.backgroudDefault, flex: 1 }}>
                 <Container>
                     {this.renderHeader()}
                 </Container>
                 {this.renderMenu()}
             </View>
-            
+
         );
     }
 }

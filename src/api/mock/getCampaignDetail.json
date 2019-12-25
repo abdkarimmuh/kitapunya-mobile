@@ -2,12 +2,12 @@
     "id": 0,
     "title": "Ayo Waqaf Mukena",
     "description": "MUKENA merupakan salah satu pakaian berharga bagi seorang perempuan dalam menjalankan ibadah. Hanya saja, tak semua orang mampu membelinya. Banyak saudara muslimah di sekitar kita yang masih bertahan dengan mukena lamanya yang sudah tak layak pakai. \n\nKita tahu bahwa membantu saudara seiman dan seagama merupakan amal shaleh. Apalagi, jika kita mampu membantu mereka dalam menjalankan ibadah, tentu pahala yang kita raih akan terus mengalir.",
+    "rilis": null,
     "image_url": "https://www.islampos.com/wp-content/uploads/2017/01/BANNER-MUKENA-2017-WEB.jpg",
     "lembaga": "Islampos",
     "day": 32,
     "percent": 0.5,
-    "barang": [
-        {
+    "barang": [{
             "nama": "Mukena",
             "real_qty": 70,
             "max_qty": 100
@@ -23,22 +23,18 @@
             "max_qty": 100
         }
     ],
-    "donatur": [
-        {
+    "donatur": [{
             "nama": "Anonim",
             "image_url": null,
-            "barang": [
-                {
-                    "nama": "Sajadah",
-                    "qty": 10
-                }
-            ]
+            "barang": [{
+                "nama": "Sajadah",
+                "qty": 10
+            }]
         },
         {
             "nama": "Zaskia Sungkar",
             "image_url": "https://media.matamata.com/thumbs/2019/02/01/92049-kamar-wardrobe-zaskia-sungkar/745x489-img-92049-kamar-wardrobe-zaskia-sungkar.jpg",
-            "barang": [
-                {
+            "barang": [{
                     "nama": "Mukena",
                     "qty": 21
                 },

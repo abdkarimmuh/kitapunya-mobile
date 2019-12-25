@@ -24,9 +24,9 @@ export default class BarangScreen extends Component {
         );
     }
 
-    renderItem = ({data}) => (
-        data.map((item)=> (
-            <View style={{ marginTop: 24 }}>
+    renderItem = ({ data }) => (
+        data.map((item, index) => (
+            <View style={{ marginTop: 24 }} key={index}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <Text style={{ fontWeight: "500", fontSize: 18 }}>{item.nama}</Text>
                     <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
@@ -38,7 +38,7 @@ export default class BarangScreen extends Component {
                         </View>
                     </View>
                 </View>
-                <View style={{ width: '100%', height: 1, backgroundColor: Color.dividerColor, marginTop: 12 }}/>
+                <View style={{ width: '100%', height: 1, backgroundColor: Color.dividerColor, marginTop: 12 }} />
             </View>
         ))
     )
@@ -48,7 +48,7 @@ export default class BarangScreen extends Component {
             <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
                 <Container>
                     {this.renderHeader()}
-                    {this.renderItem({data: this.props.data})}
+                    {this.renderItem({ data: this.props.data })}
                 </Container>
             </ScrollView>
         );

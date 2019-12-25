@@ -7,7 +7,7 @@ const theme = {
     colors: {
         ...DefaultTheme.colors,
         primary: Color.primaryColor,
-        accent: Color.secondaryColor,
+        accent: Color.textColor,
         borderGrey: "#C4C4C4",
         separatorGrey: "#F3F3F3",
         textGrey: "#C1C1C1"
@@ -31,11 +31,12 @@ const darkTheme = {
     colors: {
         ...DarkTheme.colors,
         primary: Color.primaryColor,
-        accent: Color.secondaryColor,
+        accent: Color.white,
         borderGrey: "#C4C4C4",
         separatorGrey: "#F3F3F3",
         textGrey: "#C1C1C1",
-        surface: "#FFFFFF"
+        surface: "#FFFFFF",
+        background: "#5B5B5B"
     },
     fonts: {
         ...DarkTheme.fonts,

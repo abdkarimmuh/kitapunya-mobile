@@ -1,18 +1,22 @@
-import React, { Component } from "react";
-import { Image, ImageBackground, View, ScrollView } from "react-native";
-import { TextInputLoginRegister, 
-    ButtonLoginRegister, 
-    Container, 
-    Text 
-} from "@app/components";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Image, ImageBackground, View } from "react-native";
+import { ButtonLoginRegister, Container, Text, TextInput } from "@app/components";
+import Api from "@app/api/Api";
+import { NavigationServices, AsyncStorage } from "@app/services";
+
+import UserRedux from "@app/redux/user";
 
 import Styles from "@app/assets/styles";
 import Images from "@app/assets/images";
 import { darkTheme } from "@app/themes";
 
-import NavigationServices from "@app/services/NavigationServices";
+type Props = {
+    setData: any => void,
+    setToken: any => void,
+}
 
-export default class Register extends Component {
+class RegisterScreen extends PureComponent<Props> {
 
     constructor(props) {
         super(props);
@@ -25,65 +29,39 @@ export default class Register extends Component {
         }
     }
 
-    onPressLogin = () => {
-        console.log("Login")
+    onPressLogin = async () => {
+        console.log("Login");
         NavigationServices.navigate("Login");
-    };
+    }
 
     onPressRegister = () => {
-        console.log("Register " + this.state.email + " " + this.state.password + this.state.firstName)
-        this.setState({
-            full_name: "",
-            email: "",
-            password: "",
-            confrimPassword: ""
-        })
-        NavigationServices.resetStackNavigate(["Main"]);
+
     };
 
     renderInput = () => {
         return (
             <View>
-                {TextInputLoginRegister(
-                    "Full Name",
-                    this.state.full_name,
-                    (full_name) => { this.setState({ full_name }) },
-                    false,
-                    "default"
-                )}
-                {TextInputLoginRegister(
-                    "Email",
-                    this.state.email,
-                    (email) => { this.setState({ email }) },
-                    false,
-                    "email-address"
-                )}
-                {TextInputLoginRegister(
-                    "Password",
-                    this.state.password,
-                    (password) => { this.setState({ password }) },
-                    true,
-                    "default"
-                )}
-                {TextInputLoginRegister(
-                    "Konfirmasi Password",
-                    this.state.confrimPassword,
-                    (confrimPassword) => { this.setState({ confrimPassword }) },
-                    true,
-                    "default"
-                )}
+                <TextInput label="Name" mode="outlined" theme={darkTheme} value={this.state.name} style={Styles.textInput}
+                    onChangeText={name => { this.setState({ name }) }}
+                />
+                <TextInput label="Email" mode="outlined" theme={darkTheme} value={this.state.email} style={Styles.textInput}
+                    onChangeText={email => { this.setState({ email }) }}
+                />
+                <TextInput label="Password" mode="outlined" theme={darkTheme} secureTextEntry value={this.state.password} style={Styles.textInput}
+                    onChangeText={password => { this.setState({ password }) }}
+                />
+                <TextInput label="Konfirmasi Password" mode="outlined" theme={darkTheme} secureTextEntry value={this.state.confrimPassword} style={Styles.textInput}
+                    onChangeText={confrimPassword => { this.setState({ confrimPassword }) }}
+                />
             </View>
-        )
+        );
     }
 
     renderBottom = () => {
         return (
             <View style={{ flexDirection: "row", alignSelf: "center", marginTop: 32 }}>
                 <Text theme={darkTheme}>Sudah punya akun?</Text>
-                <Text
-                    theme={darkTheme}
-                    style={{ marginLeft: 4, fontWeight: "bold" }}
-                    onPress={this.onPressLogin}>Login</Text>
+                <Text theme={darkTheme} style={{ marginLeft: 4, fontWeight: "bold" }} onPress={this.onPressLogin}>Login</Text>
             </View>
         )
     }
@@ -91,18 +69,20 @@ export default class Register extends Component {
     render() {
         return (
             <ImageBackground source={Images.background.backgroundLogin} style={Styles.bgImage}>
-                <ScrollView style={Styles.containerRegister}>
-                    <Container style={Styles.login}>
-                        <Image source={Images.logo.iconHeader} style={Styles.imgLogin} />
-                        {this.renderInput()}
-                        {ButtonLoginRegister(
-                            "Register",
-                            this.onPressRegister
-                        )}
-                        {this.renderBottom()}
-                    </Container>
-                </ScrollView>
+                <Container style={Styles.login}>
+                    <Image source={Images.logo.bannerWhite} style={Styles.imgLogin} />
+                    {this.renderInput()}
+                    {ButtonLoginRegister("REGISTER", this.onPressRegister)}
+                    {this.renderBottom()}
+                </Container>
             </ImageBackground>
         );
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    setData: data => dispatch(UserRedux.actions.setData({ data })),
+    setToken: token => dispatch(UserRedux.actions.setToken(token))
+})
+
+export default connect(null, mapDispatchToProps)(RegisterScreen);
