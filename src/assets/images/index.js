@@ -7,10 +7,12 @@ export default {
     },
     avatar: {
         avatarPrimary: require("./avatar/avatar_primary.png"),
-        avatarWhite: require("./avatar/avatar_white.png")
+        avatarWhite: require("./avatar/avatar_white.png"),
+        avatarEdit: require("./avatar/edit.png"),
     },
     background: {
-        backgroundLogin: require("./background/background.png")
+        backgroundLogin: require("./background/background.png"),
+        defaultBanner: require("./background/default_banner.png"),
     },
     icon: {
         child: require("./icon/child.png"),
@@ -30,5 +32,11 @@ export default {
         giftWhite: require("./icon/gift_white.png"),
         mapWhite: require("./icon/map_white.png"),
         cameraWhite: require("./icon/camera_white.png"),
+
+        funnel: require("./icon/funnel.png"),
+        github: require("./icon/github.png"),
+        lock: require("./icon/lock.png"),
+        settings: require("./icon/settings.png"),
+        logout: require("./icon/logout.png"),
     },
 };

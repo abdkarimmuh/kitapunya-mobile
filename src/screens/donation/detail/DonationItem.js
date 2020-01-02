@@ -1,32 +1,39 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Image, View } from "react-native";
 import { Card, Text, Caption, ProgressBar } from "@app/components";
-import NavigationServices from "@app/services/NavigationServices";
 import Styles from "@app/assets/styles";
 import Images from "@app/assets/images";
 import Color from "@app/assets/colors";
+import NavigationServices from "@app/services/NavigationServices";
 import { Metrics } from "@app/themes";
 
-export default class DonationItem extends Component {
+export default class DonationItem extends PureComponent {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
     pressCategory(title) {
         NavigationServices.navigate("DetailCampaign", { title: title });
     }
 
     render() {
         return (
-            <Card 
-                style = {{ elevation: 2 }}
+            <Card
+                style={{ elevation: 2 }}
                 onPress={() => this.pressCategory("Detail")}>
-                <View style={Styles.itemDonation}>
+                <View style={Styles.containerRowCenter}>
                     {
                         (this.props.imageUrl == '' || this.props.imageUrl == null)
-                        ? <Image source={Images.background.backgroundLogin} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation, resizeMode: "cover" }} />
-                        : <Image source={{uri: this.props.imageUrl}} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation, resizeMode: "cover" }}/>
+                            ? <Image source={Images.background.defaultBanner} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation, resizeMode: "cover" }} />
+                            : <Image source={{ uri: this.props.imageUrl }} style={{ width: Metrics.ItemDonation, height: Metrics.ItemDonation, resizeMode: "cover" }} />
                     }
-                    
-                    <View 
+
+                    <View
                         style={{ paddingLeft: 16, paddingRight: 16, flex: 1 }}>
-                        <Text 
+                        <Text
                             numberOfLines={1}
                             style={{ fontSize: 18, fontWeight: "bold" }}>
                             {this.props.title}

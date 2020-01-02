@@ -1,27 +1,16 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { View, Image, StyleSheet, ScrollView, SafeAreaView, RefreshControl } from "react-native";
+import { View, Image, ScrollView, SafeAreaView, RefreshControl, ToastAndroid } from "react-native";
+import { DonationItemScreen } from "@app/screens";
 import { HomeMenu, EmptyData } from "@app/containers";
-import { Text, Title, DonationItem, Loading } from "@app/components";
-
-import Color from "@app/assets/colors";
-import Images from "@app/assets/images";
+import { Text, Title, Loading } from "@app/components";
 import { Api, Mock } from "@app/api";
-
-import UserRedux from "@app/redux/user";
 import { NavigationServices } from "@app/services";
 
-const styles = StyleSheet.create({
-    container: { padding: 24 },
-    containerScroll: { flex: 1, backgroundColor: Color.backgroudDefault },
-    containerCard: { marginTop: 24 },
-    containerHeader: { width: "100%", padding: 24, backgroundColor: Color.white, flexDirection: "row", alignItems: "center", elevation: 4, },
-    imageProfile: { height: 80, width: 80, borderRadius: 40, borderWidth: 2, borderColor: Color.primaryColor },
-    textContainer: { flexDirection: "column", marginLeft: 16 },
-    textHeader: { fontWeight: "bold", color: Color.textColor, fontSize: 24 },
-    textHeaderName: { color: Color.textColor, fontSize: 16 },
-    titleHome: { fontSize: 18, fontWeight: "bold", color: Color.grey },
-});
+import Images from "@app/assets/images";
+import Styles from "@app/assets/styles";
+
+import UserRedux from "@app/redux/user";
 
 type Props = {
     token: string,
@@ -52,7 +41,7 @@ class HomeScreen extends PureComponent<Props> {
     onRefresh = () => {
         this.setState({ refreshingUser: true, refreshingCampaign: true });
         this.getUser();
-        this.getCampaignCurrentMock();
+        this.getCampaignCurrent();
     }
 
     getUser = async () => {
@@ -66,6 +55,24 @@ class HomeScreen extends PureComponent<Props> {
                     this.setState({ refreshingUser: false });
                 } else if (res.status != 200) {
                     NavigationServices.resetStackNavigate(["Auth"])
+                }
+            })
+            .catch(error => {
+                console.log("ERROR", error);
+                NavigationServices.resetStackNavigate(["Auth"]);
+                this.setState({ error: true, refreshingUser: false });
+            });
+    }
+
+    getCampaignCurrent = async () => {
+        Api.get()
+            .campaignCurrent(this.props.token)
+            .then(res => {
+                console.log("res getCampaignCurrent", res);
+                if (res.status === 200) {
+                    this.setState({ refreshingUser: false, campaign: res.data.data });
+                } else if (res.status != 200) {
+                    ToastAndroid.show("Data tidak ditemukan", ToastAndroid.SHORT);
                 }
             })
             .catch(error => {
@@ -90,25 +97,25 @@ class HomeScreen extends PureComponent<Props> {
     renderHeader = () => {
         if (this.state.refreshingUser) {
             return (
-                <View style={styles.containerHeader}>
-                    <Image style={styles.imageProfile} source={Images.avatar.avatarPrimary} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.textHeader}>Welcome</Text>
-                        <Text style={styles.textHeaderName}>Name</Text>
+                <View style={Styles.containerHeaderMain}>
+                    <Image style={Styles.imageProfileMain} source={Images.avatar.avatarPrimary} />
+                    <View style={Styles.containerTextHeaderMain}>
+                        <Text style={Styles.textHeaderMain}>Welcome</Text>
+                        <Text style={Styles.textHeaderNameMain}>Name</Text>
                     </View>
                 </View>
             )
         } else {
             return (
-                <View style={styles.containerHeader}>
+                <View style={Styles.containerHeaderMain}>
                     {
                         (this.props.path_photo == '' || this.props.path_photo == null)
-                            ? <Image style={styles.imageProfile} source={Images.avatar.avatarPrimary} />
-                            : <Image style={styles.imageProfile} source={{ uri: this.props.path_photo }} />
+                            ? <Image style={Styles.imageProfileMain} source={Images.avatar.avatarPrimary} />
+                            : <Image style={Styles.imageProfileMain} source={{ uri: this.props.path_photo }} />
                     }
-                    <View style={styles.textContainer}>
-                        <Text style={styles.textHeader}>Welcome</Text>
-                        <Text style={styles.textHeaderName}>{this.props.name}</Text>
+                    <View style={Styles.containerTextHeaderMain}>
+                        <Text style={Styles.textHeaderMain}>Welcome</Text>
+                        <Text style={Styles.textHeaderNameMain}>{this.props.name}</Text>
                     </View>
                 </View>
             )
@@ -123,8 +130,8 @@ class HomeScreen extends PureComponent<Props> {
         } else {
             return (
                 this.state.campaign.map((item, index) => (
-                    <View style={styles.containerCard} key={index}>
-                        <DonationItem
+                    <View style={{ marginTop: 24 }} key={index}>
+                        <DonationItemScreen
                             title={item.title}
                             description={item.description}
                             imageUrl={item.image_url}
@@ -139,16 +146,16 @@ class HomeScreen extends PureComponent<Props> {
     render() {
         console.disableYellowBox = true;
         return (
-            <View style={{ flex: 1, backgroundColor: Color.backgroudDefault }}>
+            <View style={Styles.containerDefault}>
                 {this.renderHeader()}
                 <SafeAreaView style={{ flex: 1 }}>
-                    <ScrollView style={styles.containerScroll} refreshControl={
+                    <ScrollView style={Styles.containerDefault} refreshControl={
                         <RefreshControl refreshing={this.state.refreshingUser && this.state.refreshingCampaign} onRefresh={this.onRefresh.bind(this)} />
                     }>
-                        <View style={styles.container}>
-                            <Title style={styles.titleHome}>Pilih Kategori Campaign</Title>
+                        <View style={{ padding: 24 }}>
+                            <Title style={Styles.titleMain}>Pilih Kategori Campaign</Title>
                             <HomeMenu />
-                            <Title style={styles.titleHome}>Lihat Campaign Terbaru</Title>
+                            <Title style={Styles.titleMain}>Lihat Campaign Terbaru</Title>
                             {this.renderCurrentCampaign()}
                         </View>
                     </ScrollView>

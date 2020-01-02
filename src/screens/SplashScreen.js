@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Image, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Image, ActivityIndicator } from "react-native";
 import { NavigationServices, AsyncStorage } from "@app/services";
 import { Api } from "@app/api";
 
 import Logo from "@app/assets/images";
 import Color from "@app/assets/colors";
+import Styles from "@app/assets/styles";
 
 import UserRedux from "@app/redux/user";
-
-const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: "center", backgroundColor: Color.white },
-    image: { width: "50%", height: "50%", resizeMode: "contain", alignSelf: "center" },
-    caption: { position: "absolute", bottom: 0, alignSelf: "center", marginBottom: 48 }
-});
 
 type Props = {
     setData: any => void,
@@ -87,12 +82,9 @@ class SplashScreen extends Component<Props> {
     render() {
         console.disableYellowBox = true
         return (
-            <View style={styles.container}>
-                <Image source={Logo.logo.logo} style={styles.image} />
-
-                <View style={styles.caption}>
-                    {this.loading()}
-                </View>
+            <View style={Styles.containerSplash}>
+                <Image source={Logo.logo.logo} style={Styles.imageSplash} />
+                <View style={Styles.textBottomSplash}>{this.loading()}</View>
             </View>
         );
     }

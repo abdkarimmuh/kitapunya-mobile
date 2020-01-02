@@ -14,7 +14,7 @@ import { Mock } from "@app/api";
 import NavigationServices from "@app/services/NavigationServices";
 
 const DescriptionRoute = ({ data }) => (
-    <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
+    <ScrollView style={Styles.containerDefault}>
         <Container>
             <Paragraph>{data}</Paragraph>
         </Container>
@@ -23,10 +23,16 @@ const DescriptionRoute = ({ data }) => (
 
 const RilisRoute = ({ data }) => {
     if (data == null) {
-        return (<Container><EmptyRilis /></Container>);
+        return (
+            <ScrollView style={Styles.containerDefault}>
+                <Container>
+                    <EmptyRilis />
+                </Container>
+            </ScrollView>
+        );
     } else {
         return (
-            <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
+            <ScrollView style={Styles.containerDefault}>
                 <Container>
                     <Paragraph>{data}</Paragraph>
                 </Container>
@@ -103,7 +109,7 @@ export default class DetailDonationScreen extends Component {
         return (
             <View style={{ paddingTop: 6 }}>
                 <ProgressBar progress={this.state.data.percent} color={Color.primaryColor} style={{ marginBottom: -6 }} />
-                <View style={Styles.itemDonationDetail}>
+                <View style={Styles.containerRow}>
                     <View style={{ flexDirection: "row" }}>
                         <Subheading>Dibuat oleh </Subheading>
                         <Subheading style={{ fontWeight: "bold" }}>{this.state.data.lembaga}</Subheading>
@@ -119,18 +125,18 @@ export default class DetailDonationScreen extends Component {
             <>
                 {
                     (this.state.data.image_url == null || this.state.data.image_url == "")
-                        ? <Image source={Images.background.backgroundLogin} style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} />
-                        : <Image source={{ uri: this.state.data.image_url }} style={{ width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel }} />
+                        ? <Image source={Images.background.defaultBanner} style={Styles.bannerDetailCampaign} />
+                        : <Image source={{ uri: this.state.data.image_url }} style={Styles.bannerDetailCampaign} />
                 }
-                <View style={Styles.containerBtnDonasi}>
+                <View style={Styles.containerButtonDonasi}>
                     <TouchableOpacity onPress={() => this.pressDonation("Donasi")}>
-                        <View style={Styles.btnDonasi}>
-                            <Image source={Images.icon.giftWhite} style={Styles.imgBtnDonation} />
+                        <View style={Styles.buttonDonasi}>
+                            <Image source={Images.icon.giftWhite} style={Styles.imageButtonDonasi} />
                             <Text style={{ color: Color.white, fontSize: 16 }}>DONASI</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
-                <View style={{ marginTop: 32, marginHorizontal: 24, marginBottom: 12 }}>
+                <View style={Styles.containerTitleDetailCampaign}>
                     <Title style={{ fontWeight: "bold" }}>{this.state.data.title}</Title>
                     {this.renderProgressBar()}
                 </View>

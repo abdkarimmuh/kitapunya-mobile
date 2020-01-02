@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { TextInput } from "@app/components";
 import { darkTheme } from "@app/themes";
-import Styles from "@app/assets/styles";
 
 const TextInputLoginRegister = (
     label,
@@ -16,7 +15,7 @@ const TextInputLoginRegister = (
             theme={darkTheme}
             value={value}
             onChangeText={onChangeText}
-            style={Styles.textInput}
+            style={{ marginBottom: 16 }}
             secureTextEntry={isPassword}
             keyboardType={keyboardType}
         />

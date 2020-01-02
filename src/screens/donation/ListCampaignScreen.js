@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { StyleSheet, ScrollView, View } from "react-native";
-import { DonationItem, Container, Loading } from "@app/components";
+import { ScrollView, View } from "react-native";
+import { DonationItemScreen } from "@app/screens";
+import { Container, Loading } from "@app/components";
 import { EmptyData } from "@app/containers";
 import { Mock } from "@app/api";
-
-const styles = StyleSheet.create({
-    containerCard: { marginBottom: 24 },
-});
+import Styles from "@app/assets/styles";
 
 export default class ListDonationScreen extends Component {
 
@@ -43,8 +41,8 @@ export default class ListDonationScreen extends Component {
         } else {
             return (
                 this.state.campaign.map((item, index) => (
-                    <View style={styles.containerCard} key={index}>
-                        <DonationItem
+                    <View style={{ marginBottom: 24 }} key={index}>
+                        <DonationItemScreen
                             title={item.title}
                             description={item.description}
                             imageUrl={item.image_url}
@@ -58,7 +56,7 @@ export default class ListDonationScreen extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView style={Styles.containerDefault}>
                 <Container>
                     {this.renderCurrentCampaign()}
                 </Container>

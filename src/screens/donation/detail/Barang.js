@@ -1,22 +1,20 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { ScrollView, View } from "react-native";
-import {
-    Container,
-    Text
-} from "@app/components";
+import { Container, Text } from "@app/components";
 import Color from "@app/assets/colors";
+import Styles from "@app/assets/styles";
 
-export default class BarangScreen extends Component {
+export default class BarangScreen extends PureComponent {
 
     renderHeader = () => {
         return (
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={Styles.containerRow}>
                 <Text style={{ color: Color.grey }}>Nama Barang</Text>
-                <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-                    <View style={{ width: 100, alignItems: "center" }}>
+                <View style={Styles.containerRowFlexEnd}>
+                    <View style={Styles.textTitleBarang}>
                         <Text style={{ color: Color.grey }}>Tersedia</Text>
                     </View>
-                    <View style={{ width: 100, alignItems: "center" }}>
+                    <View style={Styles.textTitleBarang}>
                         <Text style={{ color: Color.grey }}>Dibutuhkan</Text>
                     </View>
                 </View>
@@ -27,25 +25,25 @@ export default class BarangScreen extends Component {
     renderItem = ({ data }) => (
         data.map((item, index) => (
             <View style={{ marginTop: 24 }} key={index}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                    <Text style={{ fontWeight: "500", fontSize: 18 }}>{item.nama}</Text>
-                    <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-                        <View style={{ width: 100, alignItems: "center" }}>
-                            <Text style={{ fontWeight: "500", fontSize: 16 }}>{item.real_qty}</Text>
+                <View style={Styles.containerRow}>
+                    <Text style={Styles.textFieldBarang}>{item.nama}</Text>
+                    <View style={Styles.containerRowFlexEnd}>
+                        <View style={Styles.textTitleBarang}>
+                            <Text style={Styles.textFieldBarang}>{item.real_qty}</Text>
                         </View>
-                        <View style={{ width: 100, alignItems: "center" }}>
-                            <Text style={{ fontWeight: "500", fontSize: 16 }}>{item.max_qty}</Text>
+                        <View style={Styles.textTitleBarang}>
+                            <Text style={Styles.textFieldBarang}>{item.max_qty}</Text>
                         </View>
                     </View>
                 </View>
-                <View style={{ width: '100%', height: 1, backgroundColor: Color.dividerColor, marginTop: 12 }} />
+                <View style={Styles.dividerTableBarang} />
             </View>
         ))
     )
 
     render() {
         return (
-            <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
+            <ScrollView style={Styles.containerDefault}>
                 <Container>
                     {this.renderHeader()}
                     {this.renderItem({ data: this.props.data })}

@@ -1,157 +1,139 @@
-import React, { Component } from "react";
-import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Text, View, Image, TouchableOpacity, ScrollView, ToastAndroid } from "react-native";
 import { Container } from "@app/components";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import Images from "@app/assets/images";
-import { Mock } from "@app/api";
-import NavigationServices from "@app/services/NavigationServices";
+import { Api } from "@app/api";
+import { NavigationServices, AsyncStorage } from "@app/services";
 
-const styles = StyleSheet.create({
-    containerHeader: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    imageProfile: {
-        height: 64,
-        width: 64,
-        borderRadius: 450,
-        borderWidth: 2,
-        borderColor: Color.black
-    },
-    textContainer: {
-        flexDirection: "column",
-        marginLeft: 16
-    },
-    textHeader: {
-        fontWeight: "bold",
-        color: Color.black,
-        fontSize: 18
-    },
-    textHeaderName: {
-        color: Color.black,
-        fontSize: 14
-    },
-    containerMenu: {
-        width: "100%",
-        paddingHorizontal: 24,
-        paddingVertical: 12,
-    },
-    containerMenuOption: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    imgBtn: {
-        marginRight: 16,
-        width: 20,
-        height: 20,
-        resizeMode: "contain"
-    },
-    titleMenu: {
-        fontSize: 16,
-        fontWeight: "500"
-    }
-});
+import UserRedux from "@app/redux/user";
 
-export default class ProfileScreen extends Component {
+const Divider = (
+    <View style={{ marginHorizontal: 24, marginTop: 12, backgroundColor: Color.dividerColor, height: 1 }} />
+);
+
+type Props = {
+    token: string,
+    name: string,
+    email: string,
+    path_photo: string,
+}
+
+class ProfileScreen extends PureComponent<Props> {
 
     constructor(props) {
         super(props);
         this.state = {
-            user: {},
-            isFetchingUser: true,
             error: false
         };
     }
 
     componentDidMount() {
-        this.getUserMock();
-    }
 
-    getUserMock = async () => {
-        Mock.create()
-            .getUser()
-            .then(res => {
-                this.setState({ user: res.data, isFetchingUser: false })
-            })
-            .catch(err => {
-                console.log("ERR", err)
-                this.setState({ error: true, isFetchingUser: true })
-            })
     }
 
     pressEditProfil = () => {
         NavigationServices.navigate("EditProfile", { title: "Edit Profil" });
     }
 
-    pressLogout = () => {
-
+    pressGantiPassword = () => {
+        NavigationServices.navigate("ChangePassword", { title: "Ganti Password" });
     }
 
-    renderHeader = () => {
-        if (this.state.isFetchingUser) {
-            return (
-                <View style={styles.containerHeader}>
-                    <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.textHeader}>Name</Text>
-                        <Text style={styles.textHeaderName}>Email</Text>
-                    </View>
-                </View>
-            )
-        } else {
-            return (
-                <View style={styles.containerHeader}>
-                    {
-                        (this.state.user.avatar == '' || this.state.user.avatar == null)
-                            ? <Image style={styles.imageProfile} source={Images.avatar.avatarDefault} />
-                            : <Image style={styles.imageProfile} source={{ uri: this.state.user.avatar }} />
-                    }
-                    <View style={styles.textContainer}>
-                        <Text style={styles.textHeader}>{this.state.user.full_name}</Text>
-                        <Text style={styles.textHeaderName}>{this.state.user.email}</Text>
-                    </View>
-                </View>
-            )
-        }
-    };
+    pressTentangKami = () => {
+        NavigationServices.navigate("AboutUs", { title: "Tentang Kami" });
+    }
+
+    pressLogout = async () => {
+        Api.get()
+            .logout(this.props.token)
+            .then(res => {
+                console.log("Res Logout", res)
+                if (res.status === 200) {
+                    ToastAndroid.show("Berhasil", ToastAndroid.SHORT);
+                } else {
+                    ToastAndroid.show("Gagal", ToastAndroid.SHORT);
+                }
+            })
+            .catch(error => {
+                console.log("ERROR", error);
+            });
+
+        await AsyncStorage.StoreData("token", "")
+        NavigationServices.resetStackNavigate(["Auth"])
+    }
+
+    renderHeader = () => (
+        <View>
+            {
+                (this.props.path_photo == '' || this.props.path_photo == null)
+                    ? <Image style={Styles.imageProfile} source={Images.avatar.avatarWhite} />
+                    : <Image style={Styles.imageProfile} source={{ uri: this.props.path_photo }} />
+            }
+            <Text style={Styles.textHeaderTitleProfile}>Nama</Text>
+            <Text style={Styles.textHeaderProfile}>{this.props.name}</Text>
+            <Text style={Styles.textHeaderTitleProfile}>Email</Text>
+            <Text style={Styles.textHeaderProfile}>{this.props.email}</Text>
+        </View>
+    );
 
     renderMenu = () => (
-        <View style={{ marginTop: 16 }}>
-            <TouchableOpacity
-                onPress={() => {
-                    this.pressEditProfil();
-                }}>
-                <View style={styles.containerMenu}>
-                    <View style={styles.containerMenuOption}>
-                        <Image source={Images.icon.userEdit} style={styles.imgBtn} />
-                        <Text style={styles.titleMenu}>Edit Profil</Text>
+        <View style={{ marginTop: 24 }}>
+            <TouchableOpacity onPress={() => this.pressEditProfil()}>
+                <View style={Styles.containerMenuProfile}>
+                    <View style={Styles.containerRowCenter}>
+                        <Image source={Images.icon.settings} style={[Styles.iconDefault, { marginRight: 16 }]} />
+                        <Text style={Styles.titleMenuProfile}>Edit Profil</Text>
                     </View>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => {
-                    this.pressLogout();
-                }}>
-                <View style={styles.containerMenu}>
-                    <View style={styles.containerMenuOption}>
-                        <Image source={Images.icon.signOut} style={styles.imgBtn} />
-                        <Text style={styles.titleMenu}>Logout</Text>
+            <TouchableOpacity onPress={() => this.pressGantiPassword()}>
+                <View style={Styles.containerMenuProfile}>
+                    <View style={Styles.containerRowCenter}>
+                        <Image source={Images.icon.lock} style={[Styles.iconDefault, { marginRight: 16 }]} />
+                        <Text style={Styles.titleMenuProfile}>Ganti Password</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pressTentangKami()}>
+                <View style={Styles.containerMenuProfile}>
+                    <View style={Styles.containerRowCenter}>
+                        <Image source={Images.icon.github} style={[Styles.iconDefault, { marginRight: 16 }]} />
+                        <Text style={Styles.titleMenuProfile}>Tentang Kami</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pressLogout()} style={{ marginTop: 24 }}>
+                <View style={Styles.containerMenuProfile}>
+                    <View style={Styles.containerRowCenter}>
+                        <Image source={Images.icon.logout} style={[Styles.iconDefault, { marginRight: 16 }]} />
+                        <Text style={Styles.titleMenuProfile}>Logout</Text>
                     </View>
                 </View>
             </TouchableOpacity>
         </View>
-    )
+    );
 
     render() {
         return (
-            <View style={{ backgroundColor: Color.backgroudDefault, flex: 1 }}>
-                <Container>
-                    {this.renderHeader()}
-                </Container>
-                {this.renderMenu()}
-            </View>
-
+            <ScrollView style={Styles.containerDefault}>
+                <View>
+                    <Container>{this.renderHeader()}</Container>
+                    {Divider}
+                    {this.renderMenu()}
+                </View>
+            </ScrollView>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    token: UserRedux.selectors.token(state),
+    name: UserRedux.selectors.name(state),
+    email: UserRedux.selectors.email(state),
+    path_photo: UserRedux.selectors.path_photo(state),
+})
+
+export default connect(mapStateToProps, null)(ProfileScreen)

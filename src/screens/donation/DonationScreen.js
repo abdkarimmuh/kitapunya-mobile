@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { View, Image, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Container, Text, Button, Caption, TextInput, Checkbox } from "@app/components";
+import React, { PureComponent } from "react";
+import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { Container, Text, Button, TextInput, Checkbox } from "@app/components";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import Images from "@app/assets/images"
@@ -10,18 +10,7 @@ const Divider = (
     <View style={{ marginVertical: 12 }}></View>
 );
 
-const styles = StyleSheet.create({
-    containerBtnImage: { width: "45%", backgroundColor: Color.black4A },
-    containerBtnImageMap: { width: "100%", backgroundColor: Color.primaryColor },
-    btnSubmit: { marginRight: 16, backgroundColor: Color.grey },
-    txtTitle: { fontSize: 18, fontWeight: "bold" },
-    txtInputItem: { backgroundColor: Color.white, width: "45%", marginLeft: 24 },
-    btnImage: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.textColor, flexDirection: "row" },
-    btnImageMap: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.primaryColor, flexDirection: "row" },
-    txtBtnImage: { color: Color.white, fontSize: 16 },
-});
-
-export default class DonationScreen extends Component {
+export default class DonationScreen extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -67,12 +56,12 @@ export default class DonationScreen extends Component {
     renderChecked = () => {
         const { checked } = this.state;
         return (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={Styles.containerRowCenter}>
                 <Checkbox
                     status={checked ? "checked" : "unchecked"}
                     onPress={() => { this.setState({ checked: !checked }); }}
                 />
-                <Text style={styles.txtTitle}> Anonim</Text>
+                <Text style={Styles.textTitleDonasi}> Anonim</Text>
             </View>
 
         );
@@ -80,8 +69,9 @@ export default class DonationScreen extends Component {
 
     renderButtonSubmit = () => {
         return (
-            <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-                <Button mode="contained" onPress={() => (NavigationServices.goBack())} dark style={styles.btnSubmit}>BATAL</Button>
+            <View style={Styles.containerRowFlexEnd}>
+                <Button mode="contained" onPress={() => (NavigationServices.goBack())} dark
+                    style={Styles.buttonFormCancel} >BATAL</Button>
                 <Button mode="contained" onPress={() => (this.postDonation("Image", this.state.id))} dark>DONASI</Button>
             </View>
         );
@@ -91,7 +81,7 @@ export default class DonationScreen extends Component {
         return (
             <View>
                 <Text>Campaign</Text>
-                <Text style={styles.txtTitle}>Judul Campaign</Text>
+                <Text style={Styles.textTitleDonasi}>Judul Campaign</Text>
             </View>
         );
     }
@@ -100,8 +90,8 @@ export default class DonationScreen extends Component {
         return (
             this.state.item.map((data, index) => (
                 <View key={index}>
-                    <View style={Styles.containerBarang}>
-                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <View style={Styles.containerBarangDonasi}>
+                        <View style={Styles.containerRowCenter}>
                             <Checkbox
                                 status={data.check ? "checked" : "unchecked"}
                                 onPress={() => {
@@ -112,14 +102,14 @@ export default class DonationScreen extends Component {
                                     })
                                 }}
                             />
-                            <Text style={styles.txtTitle}>{data.name}</Text>
+                            <Text style={Styles.textTitleDonasi}>{data.name}</Text>
                         </View>
                     </View>
                     {data.check &&
                         <View style={Styles.containerOptionBarang}>
-                            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                            <View style={Styles.containerRowSpaceBetween}>
                                 <TextInput
-                                    style={styles.txtInputItem}
+                                    style={Styles.textInputItemDonasi}
                                     label="Jumlah"
                                     keyboardType={"number-pad"}
                                     value={data.qty}
@@ -131,11 +121,11 @@ export default class DonationScreen extends Component {
                                         })
                                     }}
                                 />
-                                <View style={styles.containerBtnImage}>
+                                <View style={Styles.containerButtonImageDonasi}>
                                     <TouchableOpacity onPress={() => (this.pressImage())}>
-                                        <View style={styles.btnImage}>
-                                            <Image source={Images.icon.cameraWhite} style={Styles.imgBtnDonation} />
-                                            <Text style={styles.txtBtnImage}>Upload Image</Text>
+                                        <View style={Styles.buttonImageDonasi}>
+                                            <Image source={Images.icon.cameraWhite} style={[Styles.iconDefault, { marginRight: 8 }]} />
+                                            <Text style={Styles.textButtonImageDonasi}>Upload Image</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -149,7 +139,7 @@ export default class DonationScreen extends Component {
 
     render() {
         return (
-            <ScrollView style={{ backgroundColor: Color.backgroudDefault }}>
+            <ScrollView style={Styles.containerDefault}>
                 <View>
                     <Container>
                         {this.renderTitle()}
@@ -167,16 +157,16 @@ export default class DonationScreen extends Component {
                             onChangeText={text => this.setState({ text })}
                         />
                         {Divider}
-                        <View style={styles.containerBtnImageMap}>
+                        <View style={Styles.containerButtonImageDonasiMap}>
                             <TouchableOpacity onPress={() => (this.pressLocataion())}>
-                                <View style={styles.btnImageMap}>
-                                    <Image source={Images.icon.mapWhite} style={Styles.imgBtnDonation} />
-                                    <Text style={styles.txtBtnImage}>Lokasi</Text>
+                                <View style={Styles.buttonImageDonasiMap}>
+                                    <Image source={Images.icon.mapWhite} style={[Styles.iconDefault, { marginRight: 8 }]} />
+                                    <Text style={Styles.textButtonImageDonasi}>Lokasi</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         {Divider}
-                        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", marginTop: 16 }}>
+                        <View style={[Styles.containerRow, { flex: 1, marginTop: 16 }]}>
                             {this.renderChecked()}
                             {this.renderButtonSubmit()}
                         </View>

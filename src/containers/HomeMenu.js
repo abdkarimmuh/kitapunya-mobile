@@ -57,7 +57,7 @@ export default class HomeMenu extends Component {
                                     this.pressCategory(item.title, item.id);
                                 }}>
                                 <View style={Styles.menuItem}>
-                                    <Image source={item.icon} style={Styles.imgMenuItem} />
+                                    <Image source={item.icon} style={Styles.imageMenuItem} />
                                     <Text style={Styles.textMenuItem}>{item.title}</Text>
                                 </View>
                             </TouchableOpacity>
