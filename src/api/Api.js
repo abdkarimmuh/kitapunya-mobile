@@ -11,9 +11,11 @@ const get = (baseURL = Config.baseUrl) => {
     const campaignCurrent = (token) => api.get(`/campaign/getCurrent`, {}, { headers: { "Authorization": `Bearer ${token}` } });
     const campaignCategory = (token, category) => api.get(`/campaign/getCategory/${category}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
     const campaignDetail = (token, id) => api.get(`/campaign/getDetail/${id}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
+    const history = (token) => api.get(`/donasi/getHistory`, {}, { headers: { "Authorization": `Bearer ${token}` } });
+    const detailHistory = (token, id) => api.get(`/donasi/getHistoryDetail/${id}`, {}, { headers: { "Authorization": `Bearer ${token}` } });
 
     return {
-        user, logout, campaign, campaignCurrent, campaignCategory, campaignDetail
+        user, logout, campaign, campaignCurrent, campaignCategory, campaignDetail, history, detailHistory
     }
 }
 

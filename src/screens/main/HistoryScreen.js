@@ -1,40 +1,59 @@
 import React, { PureComponent } from "react";
-import { Text, View, ScrollView } from "react-native";
+import { connect } from "react-redux";
+import { View, Text, ScrollView, SafeAreaView, RefreshControl, ToastAndroid } from "react-native";
 import { EmptyData } from "@app/containers";
 import { Loading, Container, Card } from "@app/components";
 import Color from "@app/assets/colors";
 import Styles from "@app/assets/styles";
-import Mock from "@app/api/mock";
+import { Api } from "@app/api";
 import NavigationServices from "@app/services/NavigationServices";
 
 import { STATUS_1, STATUS_2, STATUS_3, STATUS_4, STATUS_5, STATUS_6, STATUS_7 } from "@app/assets/strings";
 
-export default class HistoryScreen extends PureComponent {
+import UserRedux from "@app/redux/user";
+
+type Props = {
+    token: string,
+}
+
+class HistoryScreen extends PureComponent<Props> {
 
     constructor(props) {
         super(props)
         this.state = {
             data: [],
-            isFetching: true
+            refreshingHistory: true
         }
     }
 
-    componentDidMount = () => {
-        this.getHistoryMock();
+    onRefresh = () => {
+        this.setState({ refreshingHistory: true });
+        this.getHistory();
     }
 
-    getHistoryMock = () => {
-        Mock.create()
-            .getHistory()
+    componentDidMount = () => {
+        this.getHistory();
+    }
+
+    getHistory = async () => {
+        let data = []
+        Api.get()
+            .history(this.props.token)
             .then(res => {
-                this.setState({ data: res.data, isFetching: false })
+                data = res.data.data
+                console.log("res history", res);
+                if (res.status === 200) {
+                    this.setState({ refreshingHistory: false, data: data });
+                } else if (res.status != 200) {
+                    this.setState({ refreshingHistory: false, });
+                    ToastAndroid.show("Data tidak ditemukan", ToastAndroid.SHORT);
+                }
             })
-            .catch(err => {
-                console.log("ERR", err)
-                this.setState({
-                    error: true
-                })
-            })
+            .catch(error => {
+                console.log("ERROR", error);
+                ToastAndroid.show("Error", ToastAndroid.SHORT);
+                this.setState({ error: true, refreshingHistory: false });
+            });
     }
 
     statusName(status) {
@@ -78,33 +97,45 @@ export default class HistoryScreen extends PureComponent {
     }
 
     pressDetail = (id) => {
-        NavigationServices.navigate("DetailHistory", { title: "Detail Riwayat" });
+        NavigationServices.navigate("DetailHistory", { title: "Detail Riwayat", id: id });
     }
 
     render() {
         return (
-            <ScrollView style={Styles.containerDefault}>
-                <Container style={{ paddingVertical: 12 }}>
-                    {this.state.isFetching && <Loading />}
-                    {this.state.data === null && <EmptyData />}
-                    {
-                        this.state.data.map((item, index) => (
-                            <Card
-                                style={Styles.cardHistory}
-                                onPress={() => this.pressDetail(item.id)}
-                                key={index}>
-                                <Text style={Styles.textHeaderHistory}>{item.title}</Text>
-                                <View style={Styles.containerRowSpaceBetween}>
-                                    <View style={[Styles.containerStatusHistory, { backgroundColor: this.statusColor(item.status) }]}>
-                                        <Text style={Styles.textStatusHistory}>{this.statusName(item.status)}</Text>
-                                    </View>
-                                    <Text style={Styles.textDateHistory}>{item.date}</Text>
-                                </View>
-                            </Card>
-                        ))
-                    }
-                </Container>
-            </ScrollView>
+            <View style={Styles.containerDefault}>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <ScrollView style={Styles.containerDefault} refreshControl={
+                        <RefreshControl refreshing={this.state.refreshingHistory} onRefresh={this.onRefresh.bind(this)} />
+                    }>
+                        <Container style={{ paddingVertical: 12 }}>
+                            {this.state.refreshingHistory && <Loading />}
+                            {this.state.data === null || this.state.data.length == 0 && <View style={{ paddingVertical: 12 }}><EmptyData /></View>}
+                            {
+                                this.state.data.map((item, index) => (
+                                    <Card
+                                        style={Styles.cardHistory}
+                                        onPress={() => this.pressDetail(item.id)}
+                                        key={index}>
+                                        <Text style={Styles.textHeaderHistory}>{item.title}</Text>
+                                        <View style={Styles.containerRowSpaceBetween}>
+                                            <View style={[Styles.containerStatusHistory, { backgroundColor: this.statusColor(item.status) }]}>
+                                                <Text style={Styles.textStatusHistory}>{this.statusName(item.status)}</Text>
+                                            </View>
+                                            <Text style={Styles.textDateHistory}>{item.date}</Text>
+                                        </View>
+                                    </Card>
+                                ))
+                            }
+                        </Container>
+                    </ScrollView>
+                </SafeAreaView>
+            </View>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    token: UserRedux.selectors.token(state),
+})
+
+export default connect(mapStateToProps, null)(HistoryScreen)

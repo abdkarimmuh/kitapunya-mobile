@@ -1,17 +1,18 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 import { View, Image, ScrollView, TouchableOpacity, ToastAndroid } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import { Container, Paragraph, Subheading, ProgressBar, Text, Title, Loading } from "@app/components";
 import { EmptyContent } from "@app/containers";
-
 import { BarangScreen, DonaturScreen } from "@app/screens";
-
 import Images from "@app/assets/images";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import { Metrics } from "@app/themes";
-import { Mock, Api } from "@app/api";
+import { Api } from "@app/api";
 import NavigationServices from "@app/services/NavigationServices";
+
+import UserRedux from "@app/redux/user";
 
 const DescriptionRoute = ({ data }) => (
     <ScrollView style={Styles.containerDefault}>
@@ -41,7 +42,11 @@ const RilisRoute = ({ data }) => {
     }
 };
 
-export default class DetailDonationScreen extends Component {
+type Props = {
+    token: string,
+}
+
+class DetailCampaignScreen extends PureComponent<Props> {
 
     constructor(props) {
         super(props);
@@ -84,18 +89,6 @@ export default class DetailDonationScreen extends Component {
                 ToastAndroid.show("Error", ToastAndroid.SHORT);
                 this.setState({ error: true, refreshingDetail: false });
             });
-    }
-
-    getDetailCampaignMock = async () => {
-        Mock.create()
-            .getCampaignDetail()
-            .then(res => {
-                this.setState({ data: res.data, refreshingDetail: false })
-            })
-            .catch(err => {
-                console.log("ERR", err)
-                this.setState({ error: true, refreshingDetail: true })
-            })
     }
 
     _renderTabBar = props => (
@@ -186,3 +179,9 @@ export default class DetailDonationScreen extends Component {
         }
     }
 }
+
+const mapStateToProps = state => ({
+    token: UserRedux.selectors.token(state),
+})
+
+export default connect(mapStateToProps, null)(DetailCampaignScreen)

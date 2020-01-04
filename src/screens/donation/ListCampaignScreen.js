@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 import { View, ScrollView, SafeAreaView, RefreshControl, ToastAndroid } from "react-native";
 import { DonationItemScreen } from "@app/screens";
 import { Container, Loading } from "@app/components";
@@ -6,7 +7,13 @@ import { EmptyData } from "@app/containers";
 import { Api } from "@app/api";
 import Styles from "@app/assets/styles";
 
-export default class ListDonationScreen extends Component {
+import UserRedux from "@app/redux/user";
+
+type Props = {
+    token: string,
+}
+
+class ListCampaignScreen extends PureComponent<Props> {
 
     constructor(props) {
         super(props);
@@ -55,7 +62,7 @@ export default class ListDonationScreen extends Component {
         } else {
             return (
                 this.state.campaign.map((item, index) => (
-                    <View style={{ marginBottom: 24 }} key={index}>
+                    <View style={{ paddingVertical: 12 }} key={index}>
                         <DonationItemScreen
                             id={item.id}
                             title={item.title}
@@ -76,7 +83,7 @@ export default class ListDonationScreen extends Component {
                     <ScrollView style={Styles.containerDefault} refreshControl={
                         <RefreshControl refreshing={this.state.refreshingCampaign} onRefresh={this.onRefresh.bind(this)} />
                     }>
-                        <Container>
+                        <Container style={{ paddingVertical: 12 }}>
                             {this.renderCurrentCampaign()}
                         </Container>
                     </ScrollView>
@@ -85,3 +92,9 @@ export default class ListDonationScreen extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    token: UserRedux.selectors.token(state),
+})
+
+export default connect(mapStateToProps, null)(ListCampaignScreen)

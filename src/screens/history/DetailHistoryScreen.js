@@ -1,36 +1,52 @@
 import React, { PureComponent } from "react";
-import { Image, View, ScrollView } from "react-native";
-import { Card, Text, Caption, ProgressBar, Container } from "@app/components";
+import { connect } from "react-redux";
+import { View, ScrollView } from "react-native";
+import { Text, Container, Loading } from "@app/components";
 import Styles from "@app/assets/styles";
-import Images from "@app/assets/images";
 import Color from "@app/assets/colors";
-import NavigationServices from "@app/services/NavigationServices";
-import { Metrics } from "@app/themes";
-
+import { Api } from "@app/api";
 import { STATUS_1, STATUS_2, STATUS_3, STATUS_4, STATUS_5, STATUS_6, STATUS_7 } from "@app/assets/strings";
+import UserRedux from "@app/redux/user";
 
-export default class DetailHistory extends PureComponent {
+type Props = {
+    token: string,
+}
+
+class DetailHistoryScreen extends PureComponent<Props> {
 
     constructor(props) {
         super(props);
         this.state = {
-            title: "Ayo Wakaf Mukena",
-            no_trx: "DO123456789",
-            campaigner: "Yayasan Mukena Bersih",
-            status: 1,
-            date_donation: "20 Desember 2019",
-            address: "Komplek Industri Kapal Dalam, Block DD No. 13, Kelurahan Tugu, Kecamatan Cimanggis, Kota Depok",
-            items: [
-                {
-                    item_name: "Mukena",
-                    qty: 2
-                },
-                {
-                    item_name: "Sajadah",
-                    qty: 1
-                }
-            ]
+            id: undefined,
+            data: {},
+            refreshingDetail: true,
+            error: false,
         };
+    }
+
+    componentDidMount() {
+        this.getDetailHistory();
+    }
+
+    getDetailHistory = async () => {
+        let data = {}
+        Api.get()
+            .detailHistory(this.props.token, JSON.parse(this.props.navigation.getParam("id")))
+            .then(res => {
+                data = res.data.data
+                console.log("res getDetailHistory", res);
+                if (res.status === 200) {
+                    this.setState({ refreshingDetail: false, data: data });
+                } else if (res.status != 200) {
+                    this.setState({ refreshingDetail: false });
+                    ToastAndroid.show("Data tidak ditemukan", ToastAndroid.SHORT);
+                }
+            })
+            .catch(error => {
+                console.log("ERROR", error);
+                ToastAndroid.show("Error", ToastAndroid.SHORT);
+                this.setState({ error: true, refreshingDetail: false });
+            });
     }
 
     statusName(status) {
@@ -78,48 +94,58 @@ export default class DetailHistory extends PureComponent {
             <View key={index} style={Styles.containerItemsDetailHistory}>
                 <Text style={{ fontWeight: "bold" }}>− </Text>
                 <Text style={{ fontWeight: "bold" }}>{item.qty} </Text>
-                <Text style={{ fontWeight: "bold" }}>{item.item_name} </Text>
+                <Text style={{ fontWeight: "bold" }}>{item.name} </Text>
             </View>
         ))
     }
 
     render() {
-        return (
-            <ScrollView style={Styles.containerDefault}>
-                <Container>
-                    <View style={Styles.containerHeaderDetailHistory}>
-                        <Text style={Styles.textHeaderDetailHistory}>{this.state.title}</Text>
-                        <View style={Styles.containerRowCenter}>
-                            <Text>No Transaksi : </Text>
-                            <Text style={{ fontWeight: "bold" }}>{this.state.no_trx}</Text>
-                        </View>
-                    </View>
-                    <View style={{ marginBottom: 24 }}>
-                        <Text>Pembuat</Text>
-                        <Text style={Styles.textCampaignerDetailHistory}>{this.state.campaigner}</Text>
-                    </View>
-                    <View style={[Styles.containerRow, { marginBottom: 24 }]}>
-                        <View>
-                            <Text>Status</Text>
-                            <View style={[Styles.containerStatusHistory, { backgroundColor: this.statusColor(this.state.status), marginTop: 2 }]}>
-                                <Text style={Styles.textStatusHistory}>{this.statusName(this.state.status)}</Text>
+        if (this.state.refreshingDetail) {
+            return (<View style={{ padding: 16 }}><Loading /></View>)
+        } else {
+            return (
+                <ScrollView style={Styles.containerDefault}>
+                    <Container>
+                        <View style={Styles.containerHeaderDetailHistory}>
+                            <Text style={Styles.textHeaderDetailHistory}>{this.state.data.title}</Text>
+                            <View style={Styles.containerRowCenter}>
+                                <Text>No Transaksi : </Text>
+                                <Text style={{ fontWeight: "bold" }}>{this.state.data.no_trx}</Text>
                             </View>
                         </View>
-                        <View style={{ alignItems: "flex-end" }}>
-                            <Text>Tanggal Donasi</Text>
-                            <Text style={Styles.textDateDetailHistory}>{this.state.date_donation}</Text>
+                        <View style={{ marginBottom: 24 }}>
+                            <Text>Pembuat</Text>
+                            <Text style={Styles.textCampaignerDetailHistory}>{this.state.data.campaigner}</Text>
                         </View>
-                    </View>
-                    <View style={{ marginBottom: 24 }}>
-                        <Text style={{ marginBottom: 2 }}>Barang yang didonasikan</Text>
-                        {this.renderItems(this.state.items)}
-                    </View>
-                    <View>
-                        <Text>Alamat penjemputan</Text>
-                        <Text style={Styles.textAddressDetailHistory}>{this.state.address}</Text>
-                    </View>
-                </Container>
-            </ScrollView>
-        );
+                        <View style={[Styles.containerRow, { marginBottom: 24 }]}>
+                            <View>
+                                <Text>Status</Text>
+                                <View style={[Styles.containerStatusHistory, { backgroundColor: this.statusColor(this.state.data.status), marginTop: 2 }]}>
+                                    <Text style={Styles.textStatusHistory}>{this.statusName(this.state.data.status)}</Text>
+                                </View>
+                            </View>
+                            <View style={{ alignItems: "flex-end" }}>
+                                <Text>Tanggal Donasi</Text>
+                                <Text style={Styles.textDateDetailHistory}>{this.state.data.date}</Text>
+                            </View>
+                        </View>
+                        <View style={{ marginBottom: 24 }}>
+                            <Text style={{ marginBottom: 2 }}>Barang yang didonasikan</Text>
+                            {this.renderItems(this.state.data.items)}
+                        </View>
+                        <View>
+                            <Text>Alamat penjemputan</Text>
+                            <Text style={Styles.textAddressDetailHistory}>{this.state.data.address}</Text>
+                        </View>
+                    </Container>
+                </ScrollView>
+            );
+        }
     }
 }
+
+const mapStateToProps = state => ({
+    token: UserRedux.selectors.token(state),
+})
+
+export default connect(mapStateToProps, null)(DetailHistoryScreen)

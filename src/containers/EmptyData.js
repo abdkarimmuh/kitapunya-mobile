@@ -9,7 +9,7 @@ export default class EmptyData extends Component {
             <Card style={{ widht: "100%", padding: 24, elevation: 4, alignItems: "center" }}>
                 <Card.Content>
                     <Image source={Images.logo.banner} style={{ width: 200, height: 80, resizeMode: "contain" }} />
-                    <Title>Data Kosong</Title>
+                    <Title style={{ textAlign: "center" }}>Data Kosong</Title>
                 </Card.Content>
             </Card>
         );
