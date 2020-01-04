@@ -15,15 +15,15 @@ export default class DonationItem extends PureComponent {
         };
     }
 
-    pressCategory(title) {
-        NavigationServices.navigate("DetailCampaign", { title: title });
+    pressCategory(title, id) {
+        NavigationServices.navigate("DetailCampaign", { title: title, id: id });
     }
 
     render() {
         return (
             <Card
                 style={{ elevation: 2 }}
-                onPress={() => this.pressCategory("Detail")}>
+                onPress={() => this.pressCategory("Detail", this.props.id)}>
                 <View style={Styles.containerRowCenter}>
                     {
                         (this.props.imageUrl == '' || this.props.imageUrl == null)

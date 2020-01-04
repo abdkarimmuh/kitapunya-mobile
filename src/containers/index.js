@@ -1,5 +1,5 @@
 import HomeMenu from "./HomeMenu";
 import EmptyData from "./EmptyData";
-import EmptyRilis from "./EmptyRilis";
+import EmptyContent from "./EmptyContent";
 
-export { HomeMenu, EmptyData, EmptyRilis };
+export { HomeMenu, EmptyData, EmptyContent };

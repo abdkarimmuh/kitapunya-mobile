@@ -4,42 +4,42 @@
     "description": "MUKENA merupakan salah satu pakaian berharga bagi seorang perempuan dalam menjalankan ibadah. Hanya saja, tak semua orang mampu membelinya. Banyak saudara muslimah di sekitar kita yang masih bertahan dengan mukena lamanya yang sudah tak layak pakai. \n\nKita tahu bahwa membantu saudara seiman dan seagama merupakan amal shaleh. Apalagi, jika kita mampu membantu mereka dalam menjalankan ibadah, tentu pahala yang kita raih akan terus mengalir.",
     "rilis": null,
     "image_url": "https://www.islampos.com/wp-content/uploads/2017/01/BANNER-MUKENA-2017-WEB.jpg",
-    "lembaga": "Islampos",
+    "campaigner": "Islampos",
     "day": 32,
     "percent": 0.5,
     "barang": [{
-            "nama": "Mukena",
+            "name": "Mukena",
             "real_qty": 70,
             "max_qty": 100
         },
         {
-            "nama": "Sejadah",
+            "name": "Sejadah",
             "real_qty": 50,
             "max_qty": 100
         },
         {
-            "nama": "Sarung",
+            "name": "Sarung",
             "real_qty": 10,
             "max_qty": 100
         }
     ],
     "donatur": [{
-            "nama": "Anonim",
+            "name": "Anonim",
             "image_url": null,
             "barang": [{
-                "nama": "Sajadah",
+                "name": "Sajadah",
                 "qty": 10
             }]
         },
         {
-            "nama": "Zaskia Sungkar",
+            "name": "Zaskia Sungkar",
             "image_url": "https://media.matamata.com/thumbs/2019/02/01/92049-kamar-wardrobe-zaskia-sungkar/745x489-img-92049-kamar-wardrobe-zaskia-sungkar.jpg",
             "barang": [{
-                    "nama": "Mukena",
+                    "name": "Mukena",
                     "qty": 21
                 },
                 {
-                    "nama": "Sajadah",
+                    "name": "Sajadah",
                     "qty": 10
                 }
             ]

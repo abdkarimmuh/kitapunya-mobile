@@ -7,32 +7,32 @@ import Icon from "@app/assets/images";
 
 const MenuItem = [
     {
-        id: 1,
+        id: 0,
         title: "Semua",
         icon: Icon.icon.gift
     },
     {
-        id: 2,
+        id: 1,
         title: "Bencana Alam",
         icon: Icon.icon.houseDamage
     },
     {
-        id: 3,
+        id: 2,
         title: "Rumah Ibadah",
         icon: Icon.icon.mosque
     },
     {
-        id: 4,
+        id: 3,
         title: "Pendidikan",
         icon: Icon.icon.graduationCap
     },
     {
-        id: 5,
+        id: 4,
         title: "Panti Asuhan",
         icon: Icon.icon.child
     },
     {
-        id: 6,
+        id: 5,
         title: "Personal",
         icon: Icon.icon.user
     },

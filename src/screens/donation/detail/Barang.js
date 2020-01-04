@@ -3,6 +3,7 @@ import { ScrollView, View } from "react-native";
 import { Container, Text } from "@app/components";
 import Color from "@app/assets/colors";
 import Styles from "@app/assets/styles";
+import { EmptyContent } from "@app/containers";
 
 export default class BarangScreen extends PureComponent {
 
@@ -26,7 +27,7 @@ export default class BarangScreen extends PureComponent {
         data.map((item, index) => (
             <View style={{ marginTop: 24 }} key={index}>
                 <View style={Styles.containerRow}>
-                    <Text style={Styles.textFieldBarang}>{item.nama}</Text>
+                    <Text style={Styles.textFieldBarang}>{item.name}</Text>
                     <View style={Styles.containerRowFlexEnd}>
                         <View style={Styles.textTitleBarang}>
                             <Text style={Styles.textFieldBarang}>{item.real_qty}</Text>
@@ -42,13 +43,23 @@ export default class BarangScreen extends PureComponent {
     )
 
     render() {
-        return (
-            <ScrollView style={Styles.containerDefault}>
-                <Container>
-                    {this.renderHeader()}
-                    {this.renderItem({ data: this.props.data })}
-                </Container>
-            </ScrollView>
-        );
+        if (this.props.data == null || this.props.data.length == 0) {
+            return (
+                <ScrollView style={Styles.containerDefault}>
+                    <Container>
+                        <EmptyContent content={"Barang Kosong"} />
+                    </Container>
+                </ScrollView>
+            );
+        } else {
+            return (
+                <ScrollView style={Styles.containerDefault}>
+                    <Container>
+                        {this.renderHeader()}
+                        {this.renderItem({ data: this.props.data })}
+                    </Container>
+                </ScrollView>
+            );
+        }
     }
 }

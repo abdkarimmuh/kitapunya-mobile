@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, Image, ScrollView, TouchableOpacity, ToastAndroid } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import { Container, Paragraph, Subheading, ProgressBar, Text, Title, Loading } from "@app/components";
-import { EmptyRilis } from "@app/containers";
+import { EmptyContent } from "@app/containers";
 
 import { BarangScreen, DonaturScreen } from "@app/screens";
 
@@ -10,7 +10,7 @@ import Images from "@app/assets/images";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import { Metrics } from "@app/themes";
-import { Mock } from "@app/api";
+import { Mock, Api } from "@app/api";
 import NavigationServices from "@app/services/NavigationServices";
 
 const DescriptionRoute = ({ data }) => (
@@ -26,7 +26,7 @@ const RilisRoute = ({ data }) => {
         return (
             <ScrollView style={Styles.containerDefault}>
                 <Container>
-                    <EmptyRilis />
+                    <EmptyContent content={"Rilis Kosong"} />
                 </Container>
             </ScrollView>
         );
@@ -46,8 +46,9 @@ export default class DetailDonationScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: undefined,
             data: {},
-            isFetching: true,
+            refreshingDetail: true,
             error: false,
             index: 0,
             routes: [
@@ -60,18 +61,40 @@ export default class DetailDonationScreen extends Component {
     }
 
     componentDidMount() {
-        this.getDetailCampaignMock();
+        this.setState({ id: JSON.parse(this.props.navigation.getParam("id")) })
+        this.getDetailCampaign();
+    }
+
+    getDetailCampaign = async () => {
+        let data = []
+        Api.get()
+            .campaignDetail(this.props.token, JSON.parse(this.props.navigation.getParam("id")))
+            .then(res => {
+                data = res.data.data
+                console.log("res getCategoryCampaign", res);
+                if (res.status === 200) {
+                    this.setState({ refreshingDetail: false, data: data });
+                } else if (res.status != 200) {
+                    this.setState({ refreshingDetail: false });
+                    ToastAndroid.show("Data tidak ditemukan", ToastAndroid.SHORT);
+                }
+            })
+            .catch(error => {
+                console.log("ERROR", error);
+                ToastAndroid.show("Error", ToastAndroid.SHORT);
+                this.setState({ error: true, refreshingDetail: false });
+            });
     }
 
     getDetailCampaignMock = async () => {
         Mock.create()
             .getCampaignDetail()
             .then(res => {
-                this.setState({ data: res.data, isFetching: false })
+                this.setState({ data: res.data, refreshingDetail: false })
             })
             .catch(err => {
                 console.log("ERR", err)
-                this.setState({ error: true, isFetching: true })
+                this.setState({ error: true, refreshingDetail: true })
             })
     }
 
@@ -101,8 +124,8 @@ export default class DetailDonationScreen extends Component {
         }
     };
 
-    pressDonation(title) {
-        NavigationServices.navigate("Donation", { title: title });
+    pressDonation(title, id) {
+        NavigationServices.navigate("Donation", { title: title, id: id });
     }
 
     renderProgressBar = () => {
@@ -112,7 +135,7 @@ export default class DetailDonationScreen extends Component {
                 <View style={Styles.containerRow}>
                     <View style={{ flexDirection: "row" }}>
                         <Subheading>Dibuat oleh </Subheading>
-                        <Subheading style={{ fontWeight: "bold" }}>{this.state.data.lembaga}</Subheading>
+                        <Subheading style={{ fontWeight: "bold" }}>{this.state.data.campaigner}</Subheading>
                     </View>
                     <Subheading>{this.state.data.day} Hari lagi</Subheading>
                 </View>
@@ -129,7 +152,7 @@ export default class DetailDonationScreen extends Component {
                         : <Image source={{ uri: this.state.data.image_url }} style={Styles.bannerDetailCampaign} />
                 }
                 <View style={Styles.containerButtonDonasi}>
-                    <TouchableOpacity onPress={() => this.pressDonation("Donasi")}>
+                    <TouchableOpacity onPress={() => this.pressDonation("Donasi", this.state.id)}>
                         <View style={Styles.buttonDonasi}>
                             <Image source={Images.icon.giftWhite} style={Styles.imageButtonDonasi} />
                             <Text style={{ color: Color.white, fontSize: 16 }}>DONASI</Text>
@@ -145,7 +168,7 @@ export default class DetailDonationScreen extends Component {
     }
 
     render() {
-        if (this.state.isFetching) {
+        if (this.state.refreshingDetail) {
             return (<View style={{ padding: 16 }}><Loading /></View>)
         } else {
             return (

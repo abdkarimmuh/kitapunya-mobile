@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { ScrollView, Image, View } from "react-native";
 import { Container, Text } from "@app/components";
 import Images from "@app/assets/images";
-import Color from "@app/assets/colors";
 import Styles from "@app/assets/styles";
+import { EmptyContent } from "@app/containers";
 
 export default class DonaturScreen extends Component {
 
@@ -16,13 +16,13 @@ export default class DonaturScreen extends Component {
                         : <Image source={{ uri: item.image_url }} style={Styles.avatarDonatur} />
                 }
                 <View style={Styles.containerDonatur}>
-                    <Text style={Styles.textNameDonatur}>{item.nama}</Text>
+                    <Text style={Styles.textNameDonatur}>{item.name}</Text>
                     <View style={{ flexDirection: "row" }}>
                         {
                             item.barang.map((barang, index) => (
                                 <View style={{ flexDirection: "row" }}>
                                     {(index != 0) && <Text style={Styles.textItemDonatur}>, </Text>}
-                                    <Text style={Styles.textItemDonatur}>{barang.qty} {barang.nama}</Text>
+                                    <Text style={Styles.textItemDonatur}>{barang.qty} {barang.name}</Text>
                                 </View>
                             ))
                         }
@@ -33,12 +33,22 @@ export default class DonaturScreen extends Component {
     )
 
     render() {
-        return (
-            <ScrollView style={Styles.containerDefault}>
-                <Container>
-                    {this.renderDonatur({ data: this.props.data })}
-                </Container>
-            </ScrollView>
-        );
+        if (this.props.data == null || this.props.data.length == 0) {
+            return (
+                <ScrollView style={Styles.containerDefault}>
+                    <Container>
+                        <EmptyContent content={"Belum ada donatur"} />
+                    </Container>
+                </ScrollView>
+            );
+        } else {
+            return (
+                <ScrollView style={Styles.containerDefault}>
+                    <Container>
+                        {this.renderDonatur({ data: this.props.data })}
+                    </Container>
+                </ScrollView>
+            );
+        }
     }
 }

@@ -4,7 +4,7 @@ import { View, Image, ScrollView, SafeAreaView, RefreshControl, ToastAndroid } f
 import { DonationItemScreen } from "@app/screens";
 import { HomeMenu, EmptyData } from "@app/containers";
 import { Text, Title, Loading } from "@app/components";
-import { Api, Mock } from "@app/api";
+import { Api } from "@app/api";
 import { NavigationServices } from "@app/services";
 
 import Images from "@app/assets/images";
@@ -35,7 +35,8 @@ class HomeScreen extends PureComponent<Props> {
     }
 
     componentDidMount() {
-        this.getCampaignCurrentMock();
+        this.getUser();
+        this.getCampaignCurrent();
     }
 
     onRefresh = () => {
@@ -54,6 +55,7 @@ class HomeScreen extends PureComponent<Props> {
                     this.props.setUser(res.data.data);
                     this.setState({ refreshingUser: false });
                 } else if (res.status != 200) {
+                    this.setState({ refreshingUser: false });
                     NavigationServices.resetStackNavigate(["Auth"])
                 }
             })
@@ -65,33 +67,24 @@ class HomeScreen extends PureComponent<Props> {
     }
 
     getCampaignCurrent = async () => {
+        let campaign = []
         Api.get()
             .campaignCurrent(this.props.token)
             .then(res => {
+                campaign = res.data.data
                 console.log("res getCampaignCurrent", res);
                 if (res.status === 200) {
-                    this.setState({ refreshingUser: false, campaign: res.data.data });
+                    this.setState({ refreshingCampaign: false, campaign: campaign });
                 } else if (res.status != 200) {
+                    this.setState({ refreshingCampaign: false, });
                     ToastAndroid.show("Data tidak ditemukan", ToastAndroid.SHORT);
                 }
             })
             .catch(error => {
                 console.log("ERROR", error);
-                NavigationServices.resetStackNavigate(["Auth"]);
-                this.setState({ error: true, refreshingUser: false });
+                ToastAndroid.show("Error", ToastAndroid.SHORT);
+                this.setState({ error: true, refreshingCampaign: false });
             });
-    }
-
-    getCampaignCurrentMock = async () => {
-        Mock.create()
-            .getCampaign()
-            .then(res => {
-                this.setState({ campaign: res.data, refreshingCampaign: false });
-            })
-            .catch(err => {
-                console.log("ERR", err);
-                this.setState({ error: true, refreshingCampaign: true });
-            })
     }
 
     renderHeader = () => {
@@ -132,6 +125,7 @@ class HomeScreen extends PureComponent<Props> {
                 this.state.campaign.map((item, index) => (
                     <View style={{ marginTop: 24 }} key={index}>
                         <DonationItemScreen
+                            id={item.id}
                             title={item.title}
                             description={item.description}
                             imageUrl={item.image_url}
