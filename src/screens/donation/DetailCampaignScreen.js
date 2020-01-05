@@ -117,8 +117,8 @@ class DetailCampaignScreen extends PureComponent<Props> {
         }
     };
 
-    pressDonation(title, id) {
-        NavigationServices.navigate("Donation", { title: title, id: id });
+    pressDonation(title, id, judul, barang) {
+        NavigationServices.navigate("Donation", { title: title, id: id, judul: judul, barang: barang });
     }
 
     renderProgressBar = () => {
@@ -145,7 +145,7 @@ class DetailCampaignScreen extends PureComponent<Props> {
                         : <Image source={{ uri: this.state.data.image_url }} style={Styles.bannerDetailCampaign} />
                 }
                 <View style={Styles.containerButtonDonasi}>
-                    <TouchableOpacity onPress={() => this.pressDonation("Donasi", this.state.id)}>
+                    <TouchableOpacity onPress={() => this.pressDonation("Donasi", this.state.id, this.state.data.title, this.state.data.barang)}>
                         <View style={Styles.buttonDonasi}>
                             <Image source={Images.icon.giftWhite} style={Styles.imageButtonDonasi} />
                             <Text style={{ color: Color.white, fontSize: 16 }}>DONASI</Text>

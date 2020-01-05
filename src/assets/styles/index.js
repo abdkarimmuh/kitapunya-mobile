@@ -53,7 +53,7 @@ export default StyleSheet.create({
     textTitleDonasi: { fontSize: 18, fontWeight: "bold" },
     textInputItemDonasi: { backgroundColor: Color.white, width: "45%", marginLeft: 24 },
     textButtonImageDonasi: { color: Color.white, fontSize: 16 },
-    buttonImageDonasi: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.textColor, flexDirection: "row" },
+    buttonImageDonasi: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", flexDirection: "row" },
     buttonImageDonasiMap: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.primaryColor, flexDirection: "row" },
 
     //DetailDonasiScreen
