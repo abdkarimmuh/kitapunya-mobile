@@ -82,7 +82,7 @@ export default StyleSheet.create({
     containerRowFlexEnd: { flexDirection: "row", alignSelf: "flex-end" },
     containerRowSpaceBetween: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
     iconDefault: { width: 20, height: 20, resizeMode: "contain" },
-    imageProfile: { height: 80, width: 80, borderRadius: 40, elevation: 4, alignSelf: "center" },
+    imageProfile: { height: 80, width: 80, borderRadius: 40, alignSelf: "center" },
     containerButtonForm: { flexDirection: "row", alignSelf: "flex-end", marginTop: 48 },
     buttonFormCancel: { marginRight: 16, backgroundColor: Color.grey },
 
