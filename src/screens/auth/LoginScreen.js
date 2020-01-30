@@ -31,6 +31,7 @@ class LoginScreen extends PureComponent<Props> {
         Api.get()
             .user(token)
             .then(res => {
+                console.log("getUser : ", res)
                 this.props.setData(res.data.data);
                 this.setState({ isFetching: false });
                 NavigationServices.resetStackNavigate(["Main"]);

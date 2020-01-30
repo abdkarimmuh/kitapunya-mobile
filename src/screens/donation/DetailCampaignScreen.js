@@ -10,7 +10,7 @@ import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import { Metrics } from "@app/themes";
 import { Api } from "@app/api";
-import NavigationServices from "@app/services/NavigationServices";
+import { NavigationServices } from "@app/services";
 
 import UserRedux from "@app/redux/user";
 
@@ -23,11 +23,12 @@ const DescriptionRoute = ({ data }) => (
 );
 
 const RilisRoute = ({ data }) => {
-    if (data == null) {
+    if (data.title != null || data.description != null) {
         return (
             <ScrollView style={Styles.containerDefault}>
                 <Container>
-                    <EmptyContent content={"Rilis Kosong"} />
+                    <Title>{data.title}</Title>
+                    <Paragraph>{data.description}</Paragraph>
                 </Container>
             </ScrollView>
         );
@@ -35,7 +36,7 @@ const RilisRoute = ({ data }) => {
         return (
             <ScrollView style={Styles.containerDefault}>
                 <Container>
-                    <Paragraph>{data}</Paragraph>
+                    <EmptyContent content={"Rilis Kosong"} />
                 </Container>
             </ScrollView>
         );

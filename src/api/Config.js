@@ -1,3 +1,4 @@
 export default {
-    baseUrl: "http://192.168.0.10:8000/api/v1"
+    baseUrl: "https://kitapunya.setakarim.xyz/api/v1"
+    // baseUrl: "http://192.168.1.12:8000/api/v1"
 }

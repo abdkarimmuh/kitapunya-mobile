@@ -5,10 +5,11 @@ import { Container, Text, Button, TextInput, Checkbox } from "@app/components";
 import Styles from "@app/assets/styles";
 import Color from "@app/assets/colors";
 import Images from "@app/assets/images"
-import NavigationServices from "@app/services/NavigationServices";
+import { NavigationServices } from "@app/services";
 import { Api } from "@app/api";
 import ImagePicker from "react-native-image-picker";
 import UserRedux from "@app/redux/user";
+import MapsRedux from "@app/redux/maps";
 
 const Divider = (
     <View style={{ marginVertical: 12 }}></View>
@@ -31,6 +32,9 @@ const options = {
 
 type Props = {
     token: string,
+    long: string,
+    lat: string,
+    resetMaps: any => void,
 }
 
 class DonationScreen extends PureComponent<Props> {
@@ -47,7 +51,7 @@ class DonationScreen extends PureComponent<Props> {
     }
 
     componentDidMount() {
-        this.setItems(JSON.parse(JSON.stringify(this.props.navigation.getParam("barang"))))
+        this.setItems(JSON.parse(JSON.stringify(this.props.navigation.getParam("barang"))));
     }
 
     setItems = (items) => {
@@ -60,7 +64,7 @@ class DonationScreen extends PureComponent<Props> {
     }
 
     pressLocataion = () => {
-
+        NavigationServices.navigate("Maps", { title: "Maps" });
     }
 
     pressImage = (index) => {
@@ -99,7 +103,7 @@ class DonationScreen extends PureComponent<Props> {
             })
 
             Api.post()
-                .donasi(this.props.token, id, this.state.location, this.state.anonim, items)
+                .donasi(this.props.token, id, this.state.location, this.props.long, this.props.lat, this.state.anonim, items)
                 .then(res => {
                     console.log("res Donasi", res);
                     if (res.status === 200) {
@@ -122,6 +126,8 @@ class DonationScreen extends PureComponent<Props> {
                     ToastAndroid.show("Error", ToastAndroid.SHORT);
                     this.setState({ error: true, isFetching: false });
                 });
+
+
         }
     }
 
@@ -164,6 +170,14 @@ class DonationScreen extends PureComponent<Props> {
             return Color.textColor;
         } else {
             return Color.grey;
+        }
+    }
+
+    getColorMaps = () => {
+        if (this.props.long == null || this.props.lat == null) {
+            return Color.grey
+        } else {
+            return Color.primaryColor
         }
     }
 
@@ -236,9 +250,9 @@ class DonationScreen extends PureComponent<Props> {
                     onChangeText={location => this.setState({ location })}
                 />
                 {Divider}
-                <View style={Styles.containerButtonImageDonasiMap}>
+                <View style={{ width: "100%" }}>
                     <TouchableOpacity onPress={() => (this.pressLocataion())}>
-                        <View style={Styles.buttonImageDonasiMap}>
+                        <View style={[Styles.buttonImageDonasiMap, { backgroundColor: this.getColorMaps() }]}>
                             <Image source={Images.icon.mapWhite} style={[Styles.iconDefault, { marginRight: 8 }]} />
                             <Text style={Styles.textButtonImageDonasi}>Lokasi</Text>
                         </View>
@@ -264,6 +278,12 @@ class DonationScreen extends PureComponent<Props> {
 
 const mapStateToProps = state => ({
     token: UserRedux.selectors.token(state),
+    long: MapsRedux.selectors.long(state),
+    lat: MapsRedux.selectors.lat(state),
 })
 
-export default connect(mapStateToProps, null)(DonationScreen)
+const mapDispatchToProps = dispatch => ({
+    resetMaps: () => dispatch(MapsRedux.actions.resetData()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DonationScreen)

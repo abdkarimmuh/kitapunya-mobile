@@ -6,6 +6,7 @@ import MainBottom from "./MainBottom";
 import CampaignStack from "./CampaignStack";
 import ProfileStack from "./ProfileStack";
 import HistoryStack from "./HistoryStack";
+import DonationStack from "./DonationStack";
 
 const InitialStack = createStackNavigator(
     {
@@ -29,7 +30,8 @@ const InitialStack = createStackNavigator(
         },
         ...CampaignStack,
         ...ProfileStack,
-        ...HistoryStack
+        ...HistoryStack,
+        ...DonationStack
     },
     {
         initialRouteName: "Splash"

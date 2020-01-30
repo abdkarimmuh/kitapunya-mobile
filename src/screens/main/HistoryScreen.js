@@ -6,7 +6,7 @@ import { Loading, Container, Card } from "@app/components";
 import Color from "@app/assets/colors";
 import Styles from "@app/assets/styles";
 import { Api } from "@app/api";
-import NavigationServices from "@app/services/NavigationServices";
+import { NavigationServices } from "@app/services";
 
 import { STATUS_1, STATUS_2, STATUS_3, STATUS_4, STATUS_5, STATUS_6, STATUS_7 } from "@app/assets/strings";
 

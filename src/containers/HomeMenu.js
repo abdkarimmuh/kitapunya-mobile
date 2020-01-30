@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, Text, Image } from "react-native";
 import Styles from "@app/assets/styles";
-import NavigationServices from "@app/services/NavigationServices";
+import { NavigationServices } from "@app/services";
 
 import Icon from "@app/assets/images";
 

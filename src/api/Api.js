@@ -25,8 +25,8 @@ const post = (baseURL = Config.baseUrl) => {
     const login = (email, password) => api.post(`/loginAsDonatur`, { email: email, password: password });
     const register = (name, email, password) => api.post(`/register`, { name: name, email: email, password: password, role_id: 3 });
     const changePassword = (token, oldPassword, password) => api.post(`/changePassword`, { oldPassword: oldPassword, password: password }, { headers: { "Authorization": `Bearer ${token}` } });
-    const updateProfile = (token, name, password, file) => api.post(`/updateProfile`, { name: name, password: password, file: file }, { headers: { "Authorization": `Bearer ${token}` } });
-    const donasi = (token, id, location, anonim, items) => api.post(`/donasi`, { id: id, location: location, anonim: anonim, items: items }, { headers: { "Authorization": `Bearer ${token}` } });
+    const updateProfile = (token, name, email, file) => api.post(`/updateProfile`, { name: name, email: email, file: file }, { headers: { "Authorization": `Bearer ${token}` } });
+    const donasi = (token, id, location, long, lat, anonim, items) => api.post(`/donasi`, { id: id, location: location, long: long, lat: lat, anonim: anonim, items: items }, { headers: { "Authorization": `Bearer ${token}` } });
 
     return {
         login, register, changePassword, updateProfile, donasi

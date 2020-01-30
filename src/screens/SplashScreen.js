@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Image, ActivityIndicator } from "react-native";
+import { View, Image, ActivityIndicator, PermissionsAndroid } from "react-native";
 import { NavigationServices, AsyncStorage } from "@app/services";
 import { Api } from "@app/api";
 
@@ -15,6 +15,30 @@ type Props = {
     setToken: any => void,
 }
 
+async function requestMapsPermission() {
+    try {
+        const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+                title: 'Maps App Location Permission',
+                message:
+                    'Maps App needs access to your Location ' +
+                    'so you can know the location around.',
+                buttonNeutral: 'Ask Me Later',
+                buttonNegative: 'Cancel',
+                buttonPositive: 'OK',
+            },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('You can use the Location');
+        } else {
+            console.log('Location permission denied');
+        }
+    } catch (err) {
+        console.warn(err);
+    }
+}
+
 class SplashScreen extends Component<Props> {
 
     constructor(props) {
@@ -25,6 +49,7 @@ class SplashScreen extends Component<Props> {
     }
 
     componentDidMount() {
+        requestMapsPermission();
         this.checkToken();
     }
 
@@ -41,7 +66,7 @@ class SplashScreen extends Component<Props> {
         Api.get()
             .user(token)
             .then(res => {
-                console.log('res', res.data.data);
+                console.log('getUser : ', res);
                 setTimeout(() => {
                     if (res.status === 200) {
                         this.props.setData(res.data.data);

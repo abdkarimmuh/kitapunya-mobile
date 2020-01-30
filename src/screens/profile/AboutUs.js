@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, Image } from "react-native";
 import { Container } from "@app/components";
 import Styles from "@app/assets/styles";
-import NavigationServices from "@app/services/NavigationServices";
+import { NavigationServices } from "@app/services";
 
 export default class AboutUs extends Component {
 

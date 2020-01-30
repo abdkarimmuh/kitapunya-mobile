@@ -20,7 +20,7 @@ export default class DonaturScreen extends Component {
                     <View style={{ flexDirection: "row" }}>
                         {
                             item.barang.map((barang, index) => (
-                                <View style={{ flexDirection: "row" }}>
+                                <View style={{ flexDirection: "row" }} key={index}>
                                     {(index != 0) && <Text style={Styles.textItemDonatur}>, </Text>}
                                     <Text style={Styles.textItemDonatur}>{barang.qty} {barang.name}</Text>
                                 </View>

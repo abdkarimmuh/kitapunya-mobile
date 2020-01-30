@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
       android:name=".MainApplication"
@@ -11,7 +12,17 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
+      android:usesCleartextTraffic="true"
       android:theme="@style/AppTheme">
+      
+      <!-- <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyBLG-Aee23gEIbmeGss9SIdoMd6N2bNRoM"/> -->
+
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAhkqaFlAK4a-9sr0hc543arj2HMUcnDsQ"/>
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

@@ -49,16 +49,15 @@ export default StyleSheet.create({
     //DonasiScreen
     containerBarangDonasi: { padding: 24, backgroundColor: Color.white },
     containerButtonImageDonasi: { width: "45%", backgroundColor: Color.black4A },
-    containerButtonImageDonasiMap: { width: "100%", backgroundColor: Color.primaryColor },
     textTitleDonasi: { fontSize: 18, fontWeight: "bold" },
     textInputItemDonasi: { backgroundColor: Color.white, width: "45%", marginLeft: 24 },
     textButtonImageDonasi: { color: Color.white, fontSize: 16 },
     buttonImageDonasi: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", flexDirection: "row" },
-    buttonImageDonasiMap: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.primaryColor, flexDirection: "row" },
+    buttonImageDonasiMap: { elevation: 4, borderRadius: 4, width: "100%", height: 40, alignItems: "center", justifyContent: "center", flexDirection: "row" },
 
     //DetailDonasiScreen
-    bannerDetailCampaign: { width: Metrics.DEVICE_WIDTH, height: Metrics.HightCarousel },
-    containerButtonDonasi: { position: "absolute", top: Metrics.HightCarousel - 20, alignSelf: "center" },
+    bannerDetailCampaign: { width: Metrics.DEVICE_WIDTH, height: Metrics.HeightCarousel },
+    containerButtonDonasi: { position: "absolute", top: Metrics.HeightCarousel - 20, alignSelf: "center" },
     imageButtonDonasi: { marginRight: 8, width: 20, height: 20, resizeMode: "contain" },
     containerOptionBarang: { paddingBottom: 24, paddingRight: 24, paddingRight: 24, marginBottom: 12, backgroundColor: Color.white },
     buttonDonasi: { elevation: 4, borderRadius: 4, width: 110, height: 40, alignItems: "center", justifyContent: "center", backgroundColor: Color.primaryColor, flexDirection: "row" },
@@ -95,4 +94,9 @@ export default StyleSheet.create({
 
     //DonationItem
     itemDaysProgresiveDay: { flexDirection: "row", alignSelf: "flex-end" },
+
+    //Maps
+    containerButtonSetMaps: { position: "absolute", bottom: 0, right: 0, marginBottom: 32, marginRight: 32 },
+    buttonSetMaps: { padding: 16, borderRadius: 28, elevation: 4, backgroundColor: Color.primaryColor },
+    imageSetMaps: { width: 24, height: 24, resizeMode: "contain" }
 });

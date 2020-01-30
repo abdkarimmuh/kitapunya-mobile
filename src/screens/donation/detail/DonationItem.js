@@ -4,7 +4,7 @@ import { Card, Text, Caption, ProgressBar } from "@app/components";
 import Styles from "@app/assets/styles";
 import Images from "@app/assets/images";
 import Color from "@app/assets/colors";
-import NavigationServices from "@app/services/NavigationServices";
+import { NavigationServices } from "@app/services";
 import { Metrics } from "@app/themes";
 
 export default class DonationItem extends PureComponent {
