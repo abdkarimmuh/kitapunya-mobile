@@ -18,9 +18,12 @@ git clone https://github.com/setakarim/kitapunya-mobile.git
 
 ## Built With
 
--   [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
--   [Maven](https://maven.apache.org/) - Dependency Management
--   [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+-   [Apisauce](https://github.com/infinitered/apisauce) - Request API
+-   [Eva Icons](https://github.com/akveo/eva-icons) - Icon Pack
+-   [React Native Geolocation](https://github.com/Agontuk/react-native-geolocation-service) - React Native Geolocation Service
+-   [React Native Maps](https://github.com/react-native-community/react-native-maps) - React Native Mapview component
+-   [React Native Paper](https://github.com/callstack/react-native-paper) - UI Framework
+-   [React Native Redux](https://github.com/reduxjs/react-redux) - State Manager
 
 ## Authors
 
