@@ -33,6 +33,16 @@ const post = (baseURL = Config.baseUrl) => {
     }
 }
 
+const github = (baseURL = "https://raw.githubusercontent.com/setakarim/kitapunya-mobile/master") => {
+    const api = apisauce.create({ baseURL });
+
+    const readme = () => api.get(`/readme.md`);
+
+    return {
+        readme
+    }
+}
+
 export default {
-    get, post
+    get, post, github
 }
